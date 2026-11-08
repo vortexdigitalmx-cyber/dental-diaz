@@ -71,7 +71,7 @@ CSS_V1 = CSS_V + '''
 .miedos-v1__conversa { display: grid; grid-template-columns: 300px 1fr; gap: 16px; align-items: end; }
 .miedos-v1__conversa .circulo-nubo .nubo { width: 82%; }
 .miedos-v1 .burbuja { margin-bottom: 40%; }
-@media (max-width: 900px) { .miedos-v1 { grid-template-columns: 1fr; } .miedos-v1__conversa { grid-template-columns: 140px 1fr; } .miedos-v1 .burbuja { margin-bottom: 0; } }
+@media (max-width: 900px) { .miedos-v1 { grid-template-columns: 1fr; } .miedos-v1__conversa { grid-template-columns: 1fr; justify-items: center; } .miedos-v1__conversa .circulo-nubo { width: 200px; } .miedos-v1 .burbuja { margin-bottom: 0; min-height: 0; border-radius: 24px; } }
 
 .galeria-v1 { display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 240px 240px; gap: 14px; }
 .galeria-v1 .foto { height: 100%; border-radius: var(--r-lg); }
@@ -217,3 +217,63 @@ v1 = "\n".join([hero, trat, historia, agenda_html(pasos=False), miedos_v1(), doc
 v2 = "\n".join([hero, trat_v2(), historia, agenda_html(pasos=True), miedos_v2(), doctora, galeria_v2(), resenas_v2(), mito, visitanos, cierre])
 armar(CSS_V1, "V1 · Ajustes", v1, "../inicio-v1.html")
 armar(CSS_V2, "V2 · Propuesta completa", v2, "../inicio-v2.html", GALERIA_JS)
+
+# ---------- Versión final: V2 + preocupaciones de V1 + selector de hero ----------
+hero_n_sola = hero[:hero.index('<section class="franja-sec">')]
+hero_a = seccion(H, '<section class="hero-a">'.replace('<section ', '')) if False else H[H.index('<section class="hero-a">'):H.index('</section>', H.index('<section class="hero-a">')) + len('</section>')]
+hero_a = hero_a[:hero_a.index('<div class="contenedor">\n    <div class="franja revela"')] + '</section>'
+hero_a = hero_a.replace('<section class="hero-a">', '<section class="hero-a" data-hero="foto" hidden>')
+hero_n_sola = hero_n_sola.replace('<section class="hero-n">', '<section class="hero-n" data-hero="nubo">')
+
+CONFIANZA = [("map-pin", "Desde 2021 en Terán", "A un costado del parque"), ("scan", "Radiografía digital", "Incluida en tu valoración"), ("credit-card", "Hasta 6 meses sin intereses", "Aplican restricciones"), ("file-text", "Precio por escrito", "Antes de empezar")]
+confianza = '<section class="confianza"><div class="contenedor"><ul class="confianza__lista revela" data-escalonar>' + "".join(
+    f'<li><span class="confianza__icono">{ic(a)}</span><span><strong>{b}</strong><small>{c}</small></span></li>' for a, b, c in CONFIANZA) + '</ul></div></section>'
+
+CSS_F = CSS_V2 + CSS_V1[len(CSS_V):] + '''
+.confianza { position: relative; z-index: 3; margin-top: -1px; }
+.confianza__lista { list-style: none; margin: 0; padding: 10px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; border-radius: var(--r-xl); background: var(--marino); color: var(--marfil); box-shadow: var(--sombra-flotante); }
+.confianza__lista li { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: calc(var(--r-xl) - 8px); transition: background var(--dur-base); }
+.confianza__lista li:hover { background: rgba(250, 248, 243, 0.06); }
+.confianza__icono { width: 46px; height: 46px; flex: none; border-radius: 16px; display: grid; place-items: center; background: var(--lavanda); color: var(--marino); }
+.confianza__icono .i { width: 24px; height: 24px; }
+.confianza strong { display: block; font-size: 1rem; line-height: 1.2; letter-spacing: -0.01em; }
+.confianza small { display: block; margin-top: 2px; font-size: 0.8125rem; color: rgba(250, 248, 243, 0.7); }
+[data-hero="nubo"] + [data-hero="foto"] + .confianza .confianza__lista { margin-top: -28px; }
+@media (max-width: 960px) { .confianza__lista { grid-template-columns: 1fr 1fr; } [data-hero="nubo"] + [data-hero="foto"] + .confianza .confianza__lista { margin-top: 0; } }
+@media (max-width: 420px) { .confianza__lista li { padding: 12px; gap: 10px; } .confianza__icono { width: 38px; height: 38px; border-radius: 12px; } }
+
+[data-hero][hidden] { display: none !important; }
+.selector-hero { position: fixed; left: 16px; bottom: 16px; z-index: 70; display: flex; align-items: center; gap: 4px; padding: 4px 4px 4px 14px; border-radius: 999px; background: var(--marino); color: var(--marfil); box-shadow: var(--sombra-flotante); font-size: 0.8125rem; font-weight: 600; }
+.selector-hero button { border: 0; cursor: pointer; padding: 8px 14px; border-radius: 999px; background: transparent; color: rgba(250, 248, 243, 0.75); font-size: 0.8125rem; font-weight: 600; }
+.selector-hero button[aria-pressed="true"] { background: var(--marfil); color: var(--marino); }
+@media (max-width: 960px) { .selector-hero { bottom: auto; top: 72px; left: auto; right: 12px; padding: 3px; } .selector-hero > span { display: none; } .selector-hero button { padding: 6px 12px; } .hero-n { min-height: calc(100svh - 64px - 84px); padding-top: 64px; } .hero-a { padding-top: 64px; } }
+'''
+
+SELECTOR = '''<div class="selector-hero" role="group" aria-label="Elegir hero (solo demo)"><span>Hero</span><button type="button" data-elegir-hero="nubo" aria-pressed="true">Nubo</button><button type="button" data-elegir-hero="foto" aria-pressed="false">Fotos</button></div>
+<script>
+(function () {
+  var botones = document.querySelectorAll('[data-elegir-hero]');
+  function elegir(cual, guardar) {
+    document.querySelectorAll('[data-hero]').forEach(function (s) {
+      var on = s.getAttribute('data-hero') === cual;
+      if (on && s.hidden) {
+        s.hidden = false;
+        s.querySelectorAll('.palabras-listas').forEach(function (h) { h.classList.remove('palabras-listas'); void h.offsetWidth; h.classList.add('palabras-listas'); });
+        s.querySelectorAll('.nubo-asoma, .chip-flota').forEach(function (n) { n.style.animation = 'none'; void n.offsetWidth; n.style.animation = ''; });
+      } else if (!on) { s.hidden = true; }
+    });
+    botones.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-elegir-hero') === cual ? 'true' : 'false'); });
+    if (guardar) { try { localStorage.setItem('dd-hero', cual); } catch (e) {} }
+  }
+  botones.forEach(function (b) { b.addEventListener('click', function () { elegir(b.getAttribute('data-elegir-hero'), true); }); });
+  var inicial = 'nubo';
+  try { inicial = new URLSearchParams(location.search).get('hero') || localStorage.getItem('dd-hero') || 'nubo'; } catch (e) {}
+  if (inicial === 'foto') elegir('foto', false);
+})();
+</script>'''
+
+final = "\n".join([hero_n_sola, hero_a, confianza, trat_v2(), historia, agenda_html(pasos=True), miedos_v1(), doctora, galeria_v2(), resenas_v2(), mito, visitanos, cierre])
+html_f = cabeza("Dental Díaz · Clínica dental familiar en Terán, Tuxtla", CSS_F) + nav("final") + "<main>\n" + final + "\n</main>\n" + historia_script + GALERIA_JS + SELECTOR + pie()
+html_f = html_f.replace('<div class="propuesta-tag">Propuesta final</div>\n', '')
+open("../index.html", "w").write(html_f)
+print("ok index", len(html_f))

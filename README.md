@@ -4,6 +4,9 @@ Demo estática (HTML, CSS y JS sin build) del sitio institucional de Dental Día
 
 ## Estructura
 
+- `index.html`: Inicio final (V2 con preocupaciones de V1). Selector de hero Nubo/Fotos solo para la demo; también `?hero=foto`.
+- `inicio-a.html`, `inicio-a2.html`, `inicio-b.html`, `inicio-c.html`, `inicio-v1.html`, `inicio-v2.html`: propuestas anteriores, solo referencia.
+- `fuente/`: generadores en Python de las páginas (`python3 fuente/inicio_v.py`).
 - `base-visual.html`: sistema visual (colores, tipografía, botones, componentes, Nubo, fotografía, movimiento).
 - `assets/css/tokens.css`: colores, tipografía, espacios, esquinas y movimiento.
 - `assets/css/components.css`: componentes compartidos por todas las páginas.

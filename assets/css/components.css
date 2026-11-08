@@ -253,3 +253,38 @@ button { font: inherit; color: inherit; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   .revela { opacity: 1; transform: none; }
 }
+
+.i { width: 1.25em; height: 1.25em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; }
+.i--relleno { fill: currentColor; stroke: none; }
+.icono-btn .i { width: 22px; height: 22px; }
+.btn .i { width: 20px; height: 20px; }
+::selection { background: var(--lavanda); color: var(--marino); }
+html { caret-color: var(--marino); accent-color: var(--marino); scrollbar-color: var(--lavanda-sombra) var(--crema); }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--crema); }
+::-webkit-scrollbar-thumb { background: var(--lavanda); border-radius: 999px; border: 3px solid var(--crema); }
+.tabular { font-variant-numeric: tabular-nums; }
+
+.foto { background: radial-gradient(120% 90% at 85% 10%, rgba(163, 175, 209, 0.55), transparent 60%), linear-gradient(160deg, #E6E3E6, var(--niebla)); }
+.foto::before {
+  content: ""; position: absolute; width: 46%; aspect-ratio: 280 / 228; right: -6%; bottom: -8%;
+  background: url("../img/simbolo-marino.svg") center / contain no-repeat; opacity: 0.06; pointer-events: none;
+}
+
+.menu-movil { display: none; }
+@media (max-width: 960px) {
+  .menu-movil {
+    display: grid; position: fixed; inset: 64px 0 auto 0; z-index: 49; gap: 4px;
+    padding: 12px var(--gutter) 24px; background: var(--crema); border-bottom: 1px solid var(--linea);
+    box-shadow: var(--sombra-flotante);
+    transform: translateY(-12px); opacity: 0; visibility: hidden;
+    transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base), visibility 0s linear var(--dur-base);
+  }
+  .nav--abierto .menu-movil { transform: none; opacity: 1; visibility: visible; transition-delay: 0s; }
+  .menu-movil a:not(.btn) { padding: 14px 4px; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; border-bottom: 1px solid var(--linea); }
+  .menu-movil .btn { margin-top: 16px; }
+}
+
+.estado-abierto { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.9375rem; }
+.estado-abierto::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--texto-suave); }
+.estado-abierto.abierto::before { background: var(--ok); box-shadow: 0 0 0 4px rgba(47, 107, 79, 0.16); }

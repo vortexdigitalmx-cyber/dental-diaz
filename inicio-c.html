@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dental Díaz · Inicio · Propuesta C</title>
+<meta name="description" content="Clínica dental familiar en Terán, Tuxtla Gutiérrez. Valoración con radiografías y plan por escrito. Blanqueamiento, ortodoncia, prótesis y odontopediatría.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/inicio.css">
+<style>
+.propuesta-tag { position: fixed; left: 16px; bottom: 16px; z-index: 70; padding: 6px 12px; border-radius: 999px; background: var(--marino); color: var(--marfil); font-family: var(--font-mono); font-size: 0.75rem; }
+@media (max-width: 960px) { .propuesta-tag { bottom: auto; top: 72px; left: auto; right: 12px; } }
+.h1-hero { font-size: clamp(2.6rem, 1.5rem + 4.4vw, 5rem); letter-spacing: -0.04em; line-height: 1.02; font-weight: 700; margin: 0; text-wrap: balance; }
+.h1-hero .subrayado { z-index: 0; }
+
+.bento { display: grid; gap: 14px; }
+.celda { position: relative; overflow: hidden; border-radius: var(--r-lg); background: var(--marfil); border: 1px solid var(--linea); padding: clamp(20px, 2.2vw, 28px); display: flex; flex-direction: column; justify-content: space-between; gap: 16px; transition: transform var(--dur-lenta) var(--ease-out), box-shadow var(--dur-lenta) var(--ease-out); }
+a.celda { text-decoration: none; }
+a.celda:hover { transform: translateY(-4px); box-shadow: var(--sombra-flotante); }
+.celda--marino { background: var(--marino); color: var(--marfil); border-color: var(--marino); }
+.celda--marino .texto, .celda--marino .chico { color: rgba(250, 248, 243, 0.76); }
+.celda--lavanda { background: var(--lavanda); border-color: var(--lavanda); }
+.celda--foto { padding: 0; }
+.celda--foto .foto { position: absolute; inset: 0; border-radius: 0; }
+.celda .grande { font-size: clamp(2.6rem, 1.8rem + 2.6vw, 4rem); font-weight: 700; letter-spacing: -0.045em; line-height: 0.95; }
+
+.hero-c { padding-block: clamp(16px, 3vw, 40px) clamp(48px, 6vw, 88px); }
+.hero-c .bento { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(3, minmax(170px, auto)); }
+.c-titulo { grid-column: span 2; grid-row: span 2; justify-content: flex-end; gap: 24px; padding: clamp(28px, 3.5vw, 48px); }
+.c-titulo .lead { max-width: 32ch; }
+.c-foto { grid-column: 3; grid-row: span 2; }
+.c-nubo { grid-column: 4; justify-content: flex-start; padding: 0; min-height: 190px; }
+.c-nubo .nubo { position: absolute; left: -12%; bottom: -2px; width: 124%; }
+.c-nubo__txt { position: relative; z-index: 2; margin: 18px; padding: 8px 12px; border-radius: 16px 16px 16px 4px; background: var(--marfil); color: var(--marino); font-size: 0.875rem; font-weight: 600; align-self: flex-start; }
+.c-google { grid-column: 4; }
+.c-abierto { grid-column: 1; }
+.c-precio { grid-column: 2; }
+.c-meses { grid-column: span 2; }
+.c-meses__bancos { display: flex; flex-wrap: wrap; gap: 6px; }
+.c-meses__bancos span { padding: 5px 10px; border-radius: 999px; background: var(--crema); font-size: 0.8125rem; font-weight: 600; }
+@media (max-width: 1024px) {
+  .hero-c .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; }
+  .c-titulo { grid-column: span 2; grid-row: auto; }
+  .c-foto { grid-column: 1; grid-row: span 2; min-height: 360px; }
+  .c-nubo, .c-google { grid-column: 2; }
+  .c-abierto { grid-column: 1; } .c-precio { grid-column: 2; }
+  .c-meses { grid-column: span 2; }
+}
+@media (max-width: 560px) {
+  .hero-c .bento { grid-template-columns: 1fr 1fr; }
+  .c-titulo { order: 0; }
+  .c-nubo { order: 1; grid-column: 1; min-height: 170px; }
+  .c-google { order: 2; grid-column: 2; }
+  .c-foto { order: 3; grid-column: span 2; grid-row: auto; min-height: 320px; }
+  .c-precio { order: 4; grid-column: 2; } .c-abierto { order: 4; grid-column: 1; }
+  .c-meses { order: 6; }
+}
+
+.trat-c { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(200px, auto); }
+.t-blanq { grid-column: span 2; grid-row: span 2; padding: 0; justify-content: flex-end; }
+.t-blanq .foto { position: absolute; inset: 0; border-radius: 0; }
+.t-blanq__tx { position: relative; z-index: 2; margin: 14px; padding: 22px; border-radius: var(--r-md); background: rgba(250, 248, 243, 0.94); display: grid; gap: 10px; }
+.t-orto { grid-column: span 2; }
+.t-ninos { padding-right: 40%; }
+.t-ninos .nubo { position: absolute; right: -14%; bottom: -10%; width: 70%; }
+.t-general { grid-column: span 4; flex-direction: row; align-items: center; flex-wrap: wrap; }
+.t-general .datos { flex: 1; justify-content: flex-end; }
+.celda__pie { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 0.9375rem; }
+.celda__pie .circulo { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--crema); color: var(--marino); transition: transform var(--dur-base) var(--ease-out), background var(--dur-base), color var(--dur-base); }
+a.celda:hover .circulo { transform: rotate(-45deg); background: var(--marino); color: var(--marfil); }
+.celda--marino .celda__pie .circulo { background: rgba(250, 248, 243, 0.14); color: var(--marfil); }
+@media (max-width: 900px) {
+  .trat-c { grid-template-columns: 1fr 1fr; }
+  .t-blanq { grid-column: span 2; min-height: 420px; }
+  .t-orto { grid-column: span 2; }
+  .t-general { grid-column: span 2; }
+  .t-general .datos { justify-content: flex-start; }
+}
+@media (max-width: 560px) { .t-prot, .t-ninos { grid-column: span 2; } }
+
+.visita-c { display: grid; grid-template-columns: 1fr 340px; gap: 14px; }
+.visita-c__pasos { padding: clamp(24px, 3.5vw, 48px); }
+.visita-c__pasos .pasos-int__detalle p { margin: 28px 0 0; font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.6rem); line-height: 1.4; max-width: 34ch; letter-spacing: -0.01em; }
+.visita-c__nubo { align-items: center; justify-content: center; }
+.visita-c__nubo .nubo { width: 86%; }
+@media (max-width: 900px) { .visita-c { grid-template-columns: 1fr; } .visita-c__nubo { order: -1; min-height: 240px; } .visita-c__nubo .nubo { width: 220px; } }
+
+.dupla-c { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px; }
+.dupla-c .burbuja { min-height: 6.5em; background: var(--crema); }
+.dupla-c .mito { min-height: 340px; }
+.dupla-c .mito__cara, .dupla-c .mito__frente, .dupla-c .mito__vuelta { border-radius: var(--r-lg); }
+@media (max-width: 900px) { .dupla-c { grid-template-columns: 1fr; } }
+
+.lugar-c { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 14px; }
+.lugar-c .mapa { grid-column: span 2; grid-row: span 2; min-height: 420px; border-radius: var(--r-lg); }
+@media (max-width: 900px) { .lugar-c { grid-template-columns: 1fr; } .lugar-c .mapa { grid-column: auto; grid-row: auto; min-height: 300px; } }
+
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="contenedor nav__fila">
+    <a class="logo" href="#" aria-label="Dental Díaz, inicio"><img src="assets/img/simbolo-marino.svg" alt=""><span>Dental Díaz</span></a>
+    <ul class="nav__menu">
+      <li><a class="tiene-sub" href="#tratamientos">Tratamientos <svg class="i" aria-hidden="true"><use href="#i-chevron-down"/></svg></a></li>
+      <li><a href="#primera-visita">Tu primera visita</a></li>
+      <li><a href="#clinica">La clínica</a></li>
+      <li><a href="#">Nubo explica</a></li>
+      <li><a href="#visitanos">Contacto</a></li>
+    </ul>
+    <div class="nav__acciones">
+      <a class="icono-btn" href="https://wa.me/529611385698?text=Hola%2C%20quiero%20informes%20de%20una%20valoraci%C3%B3n" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg class="i" aria-hidden="true"><use href="#i-brand-whatsapp"/></svg></a>
+      <a class="btn btn--primario btn--chico" href="#agenda">Agenda tu valoración</a>
+      <button class="icono-btn nav__hamburguesa" aria-label="Abrir menú" aria-expanded="false"><svg class="i" aria-hidden="true"><use href="#i-menu-2"/></svg></button>
+    </div>
+  </div>
+  <nav class="menu-movil" aria-label="Menú">
+    <a href="#tratamientos">Tratamientos</a>
+    <a href="#primera-visita">Tu primera visita</a>
+    <a href="#clinica">La clínica</a>
+    <a href="#">Nubo explica</a>
+    <a href="#visitanos">Contacto</a>
+    <a class="btn btn--primario" href="#agenda">Agenda tu valoración</a>
+  </nav>
+</header>
+<div class="propuesta-tag">Propuesta C · Tablero</div>
+
+<main>
+<section class="hero-c">
+  <div class="contenedor">
+    <div class="bento" data-escalonar>
+      <div class="celda c-titulo revela">
+        <h1 class="h1-hero" style="font-size: clamp(2.4rem, 1.4rem + 3.4vw, 4.2rem)" data-palabras>Te explicamos <span class="subrayado">todo</span> antes de empezar</h1>
+        <p class="lead">Clínica dental familiar en Terán. Revisamos con calma, te enseñamos tus radiografías y tu plan va por escrito.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:12px">
+          <a class="btn btn--primario" href="#agenda">Agenda tu valoración <svg class="i flecha" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn--secundario" href="https://wa.me/529611385698?text=Hola%2C%20quiero%20informes%20de%20una%20valoraci%C3%B3n" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-brand-whatsapp"/></svg> Escríbenos</a>
+        </div>
+      </div>
+      <div class="celda celda--foto c-foto revela"><div class="foto "><div class="foto__guia"><b><svg class="i" aria-hidden="true"><use href="#i-camera"/></svg> Foto 1 · Hero</b>La doctora explicando con la radiografía en pantalla. Vertical.</div></div></div>
+      <div class="celda celda--marino c-nubo revela"><span class="c-nubo__txt">Hola, soy Nubo</span><div class="nubo nubo-asoma" data-nubo="hero" data-mirada aria-label="Nubo asomándose"></div></div>
+      <div class="celda c-google revela"><span class="estrellas" aria-label="5 estrellas"><svg class="i i--relleno" aria-hidden="true"><use href="#i-star-filled"/></svg><svg class="i i--relleno" aria-hidden="true"><use href="#i-star-filled"/></svg><svg class="i i--relleno" aria-hidden="true"><use href="#i-star-filled"/></svg><svg class="i i--relleno" aria-hidden="true"><use href="#i-star-filled"/></svg><svg class="i i--relleno" aria-hidden="true"><use href="#i-star-filled"/></svg></span><div><span class="grande">4.9</span><p class="texto chico" style="margin-top: 6px">en Google, de 5 reseñas</p></div></div>
+      <div class="celda c-abierto revela"><span class="estado-abierto" data-abierto>Horario</span><p class="texto chico tabular">Lun a vie 10 a 14 y 16 a 20<br>Sábado 10 a 14</p></div>
+      <div class="celda celda--marino c-precio revela"><span class="chico" style="font-weight:600">Valoración</span><div><span class="grande">$350</span><p class="chico" style="margin: 6px 0 0">Se descuenta de tu tratamiento</p></div></div>
+      <div class="celda c-meses revela"><div style="display:flex; align-items:center; gap:12px"><span class="franja__icono" style="background: var(--crema)"><svg class="i" aria-hidden="true"><use href="#i-credit-card"/></svg></span><strong style="font-size: 1.15rem; letter-spacing: -0.015em">Hasta 6 meses sin intereses</strong></div><p class="texto chico">En tratamientos mayores a $6,000. Aplican restricciones.</p><div class="c-meses__bancos"><span>BBVA</span><span>Santander</span><span>Inbursa</span><span>Scotiabank</span><span>Liverpool</span><span>Banorte</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="tratamientos" style="padding-top: 0">
+  <div class="contenedor">
+    <div class="titular revela"><h2 class="h2">Tratamientos</h2></div>
+    <div class="bento trat-c" data-escalonar>
+      <a class="celda t-blanq revela" href="#"><div class="foto "><div class="foto__guia"><b><svg class="i" aria-hidden="true"><use href="#i-camera"/></svg> Foto pendiente</b>Sonrisa real de cerca, luz natural, sin retoque exagerado.</div></div><div class="t-blanq__tx"><h3 class="h3" style="margin:0">Blanqueamiento</h3><p class="texto chico">Después de tu valoración, aclaramos tus dientes en 2 a 3 visitas y te damos indicaciones claras para cuidarlos.</p><div class="celda__pie"><span>2 a 3 visitas</span><span class="circulo"><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></div></div></a>
+      <a class="celda celda--marino t-orto revela" href="#"><div><h3 class="h3" style="margin:0 0 8px">Ortodoncia</h3><p class="texto chico" style="max-width: 40ch">Un plan claro desde el inicio y controles cada mes. Tú eliges el tipo de brackets con la doctora.</p></div><div class="celda__pie"><span>De 1 a 2 años, control cada mes</span><span class="circulo"><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></div></a>
+      <a class="celda t-prot revela" href="#"><div><h3 class="h3" style="margin:0 0 8px">Prótesis</h3><p class="texto chico">Lista en 2 semanas a 1 mes. Pagas en abonos por cita.</p></div><div class="celda__pie"><span>3 a 6 citas</span><span class="circulo"><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></div></a>
+      <a class="celda t-ninos revela" href="#"><div><h3 class="h3" style="margin:0 0 8px">Niños</h3><p class="chico" style="margin:0">Revisiones con calma, a su ritmo.</p></div><span class="celda__pie"><span class="circulo"><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></span><div class="nubo" data-nubo="guina" aria-label="Nubo guiñando"></div></a>
+      <div class="celda t-general revela"><div><h3 class="h3" style="margin:0 0 4px">Odontología general</h3><p class="texto chico">Todo en la misma clínica.</p></div><div class="datos"><span class="dato"><svg class="i" aria-hidden="true"><use href="#i-sparkles"/></svg>Limpieza</span><span class="dato"><svg class="i" aria-hidden="true"><use href="#i-dental"/></svg>Resinas</span><span class="dato"><svg class="i" aria-hidden="true"><use href="#i-dental"/></svg>Extracciones</span><span class="dato"><svg class="i" aria-hidden="true"><use href="#i-dental"/></svg>Endodoncia</span><span class="dato"><svg class="i" aria-hidden="true"><use href="#i-stethoscope"/></svg>Tercer molar</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="primera-visita" style="padding-top: 0">
+  <div class="contenedor">
+    <div class="visita-c" data-pasos>
+      <div class="celda visita-c__pasos revela">
+        <div><h2 class="h2" style="margin-bottom: 12px">Así es tu primera visita</h2><span class="dato"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg> 45 minutos, $350</span></div>
+        <div class="pasos-int" style="margin-top: 32px"><div class="pasos-int__nav"><span class="pasos-int__riel"></span><span class="pasos-int__barra" data-progreso></span><button class="pasos-int__btn" data-paso data-estado="escucha"><span>01</span><strong>Revisión completa</strong></button><button class="pasos-int__btn" data-paso data-estado="explica"><span>02</span><strong>Dos radiografías</strong></button><button class="pasos-int__btn" data-paso data-estado="piensa"><span>03</span><strong>Diagnóstico</strong></button><button class="pasos-int__btn" data-paso data-estado="celebra"><span>04</span><strong>Plan por escrito</strong></button></div><div class="pasos-int__detalle" data-detalle><p>Revisamos toda tu boca, sin prisa y explicándote lo que vamos viendo.</p></div><div class="pasos-int__detalle" data-detalle><p>Radiografías periapicales digitales, incluidas en tu valoración.</p></div><div class="pasos-int__detalle" data-detalle><p>Te enseñamos lo que encontramos en tus radiografías y te explicamos por qué.</p></div><div class="pasos-int__detalle" data-detalle><p>Tu plan con el precio. Si empiezas tu tratamiento aquí, se descuentan los $350.</p></div></div>
+      </div>
+      <div class="celda celda--marino visita-c__nubo revela"><div class="nubo" data-nubo="escucha" data-mirada aria-label="Nubo"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="clinica" style="padding-top: 0">
+  <div class="contenedor dupla-c">
+    <div class="celda revela" data-miedos>
+      <h2 class="h2">Sabemos qué te preocupa</h2>
+      <div class="miedos__opciones"><button class="miedo" data-miedo="Antes de cada paso te explicamos qué vamos a hacer y vamos a tu ritmo. Puedes preguntar todo lo que quieras." data-estado="empatico" aria-pressed="true">Me da miedo el dolor</button><button class="miedo" data-miedo="Lo sabes desde la valoración: tu plan va por escrito, con el precio. Hay meses sin intereses y abonos en prótesis." data-estado="explica" aria-pressed="false">No sé cuánto me va a costar</button><button class="miedo" data-miedo="Te enseñamos tus radiografías y te explicamos qué necesitas y por qué. Tú decides qué hacer y cuándo." data-estado="escucha" aria-pressed="false">Que me vendan de más</button><button class="miedo" data-miedo="Cuéntanos qué pasó antes de empezar. Lo tomamos en cuenta y vamos con calma, sin regaños." data-estado="empatico" aria-pressed="false">Tuve una mala experiencia</button></div>
+      <div style="display:grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: end"><div class="nubo" data-nubo="empatico" aria-label="Nubo"></div><div class="burbuja" data-respuesta aria-live="polite">Antes de cada paso te explicamos qué vamos a hacer y vamos a tu ritmo. Puedes preguntar todo lo que quieras.</div></div>
+    </div>
+    <button class="mito revela" data-voltear aria-pressed="false" aria-label="Voltear tarjeta del mito" style="--retraso: 100ms">
+      <div class="mito__cara">
+        <div class="mito__frente"><span class="mito__pista"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg> Mito o realidad</span><p class="h3" style="margin:0; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem)">"Con la edad, los dientes se tienen que caer"</p><span class="mito__pista">Toca para ver</span></div>
+        <div class="mito__vuelta"><span class="mito__pista"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> Mito</span><p style="margin:0; font-size: 1.15rem; line-height: 1.45">Perder dientes no es parte normal de envejecer. Con revisiones y cuidado, te pueden acompañar toda la vida.</p><span class="mito__pista">Más en Nubo explica</span></div>
+      </div>
+    </button>
+  </div>
+</section>
+
+<section class="seccion" id="visitanos" style="padding-top: 0">
+  <div class="contenedor">
+    <div class="titular revela"><h2 class="h2">Visítanos en Terán</h2></div>
+    <div class="lugar-c">
+      <div class="mapa revela"><iframe src="https://maps.google.com/maps?q=2da%20Norte%20Oriente%20438%2C%20Ter%C3%A1n%2C%20Tuxtla%20Guti%C3%A9rrez%2C%20Chiapas&z=16&output=embed" loading="lazy" title="Mapa de Dental Díaz en Terán" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="mapa__pin" href="https://share.google/V82Wj5DA7v3PU01So" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-navigation"/></svg> Cómo llegar</a></div>
+      <div class="celda revela"><strong>2da Norte Oriente #438</strong><span class="texto chico">A un costado del parque de Terán, Tuxtla Gutiérrez.</span></div>
+      <div class="celda celda--foto revela" style="min-height: 200px"><div class="foto "><div class="foto__guia"><b><svg class="i" aria-hidden="true"><use href="#i-camera"/></svg> Foto 3</b>Fachada o recepción, horizontal.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="agenda" style="padding-top: 0">
+  <div class="contenedor">
+    <div class="cierre revela">
+      <div>
+        <h2 class="h1">Tu primera visita empieza con una pregunta</h2>
+        <p>Agenda tu valoración de 45 minutos. Revisamos, te explicamos y te llevas tu plan por escrito.</p>
+        <div class="cierre__acciones">
+          <a class="btn btn--claro" href="#agenda">Agenda tu valoración <svg class="i flecha" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn--whatsapp" href="https://wa.me/529611385698?text=Hola%2C%20quiero%20informes%20de%20una%20valoraci%C3%B3n" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-brand-whatsapp"/></svg> Escríbenos</a>
+        </div>
+      </div>
+      <div class="nubo" data-nubo="invita" data-mirada aria-label="Nubo invitándote"></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="pie">
+  <div class="contenedor">
+    <div class="pie__grid">
+      <div>
+        <a class="logo" href="#" style="color: var(--marfil)"><img src="assets/img/simbolo-marino.svg" alt="" style="filter: brightness(0) invert(0.97) sepia(0.06)"><span>Dental Díaz</span></a>
+        <p style="margin: 18px 0 0; font-size: .9375rem; opacity: .78; max-width: 32ch">Clínica dental familiar en Terán. Te explicamos todo antes de empezar.</p>
+      </div>
+      <div><h4>Tratamientos</h4><ul><li><a href="#">Blanqueamiento</a></li><li><a href="#">Ortodoncia</a></li><li><a href="#">Prótesis</a></li><li><a href="#">Odontopediatría</a></li><li><a href="#">Odontología general</a></li></ul></div>
+      <div><h4>Visítanos</h4><ul><li>2da Norte Oriente #438, Terán</li><li>A un costado del parque de Terán</li><li><a href="https://share.google/V82Wj5DA7v3PU01So" target="_blank" rel="noopener">Cómo llegar</a></li></ul></div>
+      <div><h4>Horario</h4><ul><li class="tabular">Lun a vie, 10:00 a 14:00</li><li class="tabular">y 16:00 a 20:00</li><li class="tabular">Sábado, 10:00 a 14:00</li><li><a href="https://wa.me/529611385698?text=Hola%2C%20quiero%20informes%20de%20una%20valoraci%C3%B3n" target="_blank" rel="noopener">WhatsApp 961 138 5698</a></li></ul></div>
+    </div>
+    <div class="pie__legal">
+      <span>Dra. María Concepción Díaz Márquez. Cédula profesional 15529125. UNISUR.</span>
+      <span class="pie__cofepris">Aviso de publicidad COFEPRIS: pendiente</span>
+      <span><a href="#">Aviso de privacidad</a></span>
+    </div>
+  </div>
+</footer>
+<div class="barra-movil">
+  <a class="btn btn--primario" href="#agenda">Agenda tu valoración</a>
+  <a class="btn btn--whatsapp" href="https://wa.me/529611385698?text=Hola%2C%20quiero%20informes%20de%20una%20valoraci%C3%B3n" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i" aria-hidden="true"><use href="#i-brand-whatsapp"/></svg></a>
+</div>
+<script src="assets/js/iconos.js"></script>
+<script src="assets/js/nubo-states.js"></script>
+<script src="assets/js/nubo.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/inicio.js"></script>
+</body>
+</html>

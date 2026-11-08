@@ -105,6 +105,41 @@
       if (relato) new IntersectionObserver(function (en) { document.body.classList.toggle('relato-activo', en[0].isIntersecting); }, { rootMargin: '-20% 0px -30% 0px' }).observe(relato);
     }
 
+
+    document.querySelectorAll('[data-historia]').forEach(function (sec) {
+      var datos = window.HISTORIA || [];
+      var marcas = sec.querySelectorAll('[data-historia-marca]');
+      var items = sec.querySelectorAll('[data-historia-item]');
+      var linea = sec.querySelector('[data-historia-linea]');
+      var barraM = sec.querySelector('[data-historia-barra-m]');
+      var texto = sec.querySelector('[data-historia-texto]');
+      var prop = sec.querySelector('[data-historia-prop]');
+      var nubo = sec.querySelector('.nubo');
+      var actual = -1;
+      function ir(i) {
+        if (i === actual || !datos[i]) return;
+        actual = i;
+        sec.setAttribute('data-paso', i);
+        items.forEach(function (li, k) { li.classList.toggle('activo', k === i); li.classList.toggle('hecho', k < i); });
+        var f = (i + 1) / datos.length;
+        if (linea) linea.style.transform = 'scaleY(' + f + ')';
+        if (barraM) barraM.style.transform = 'scaleX(' + f + ')';
+        texto.innerHTML = '<span class="historia__contador">Paso ' + (i + 1) + ' de ' + datos.length + '</span><h3>' + datos[i].t + '</h3><p>' + datos[i].d + '</p>';
+        texto.classList.remove('cambia'); void texto.offsetWidth; texto.classList.add('cambia');
+        if (prop) {
+          prop.querySelector('use').setAttribute('href', '#i-' + datos[i].i);
+          prop.classList.remove('cambia'); void prop.offsetWidth; prop.classList.add('cambia');
+        }
+        if (nubo && window.Nubo) Nubo.set(nubo, datos[i].e);
+      }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (en) {
+          en.forEach(function (e) { if (e.isIntersecting) ir(parseInt(e.target.getAttribute('data-historia-marca'), 10)); });
+        }, { rootMargin: '-50% 0px -50% 0px' });
+        marcas.forEach(function (m) { io.observe(m); });
+      }
+      ir(0);
+    });
     document.querySelectorAll('[data-pasos]').forEach(function (box) {
       var botones = box.querySelectorAll('[data-paso]');
       var detalles = box.querySelectorAll('[data-detalle]');

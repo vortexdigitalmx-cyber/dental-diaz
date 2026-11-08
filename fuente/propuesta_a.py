@@ -45,9 +45,84 @@ CSS = CSS_COMUN + '''
 @media (max-width: 900px) { .visita-a { grid-template-columns: 1fr; } .visita-a__escena { max-width: 260px; width: 70%; margin-inline: auto; } }
 
 .miedos-a { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
-.miedos-a__conversa { display: grid; grid-template-columns: 150px 1fr; gap: 18px; align-items: end; }
-.miedos-a__conversa .nubo { width: 150px; }
-@media (max-width: 900px) { .miedos-a { grid-template-columns: 1fr; } .miedos-a__conversa { grid-template-columns: 96px 1fr; } .miedos-a__conversa .nubo { width: 96px; } }
+.miedos-a__conversa { display: grid; grid-template-columns: 240px 1fr; gap: 12px; align-items: end; }
+.miedos-a__conversa .nubo { width: 240px; }
+.miedos-a__conversa .burbuja { margin-bottom: 120px; }
+@media (max-width: 900px) { .miedos-a { grid-template-columns: 1fr; } .miedos-a__conversa { grid-template-columns: 1fr; } .miedos-a__conversa .nubo { width: 170px; order: 2; } .miedos-a__conversa .burbuja { margin-bottom: 0; } }
+
+.historia__pista { position: relative; height: calc(4 * 80vh + 100vh); }
+.historia__marca { position: absolute; left: 0; right: 0; height: 80vh; pointer-events: none; }
+.historia__escena { position: sticky; top: 88px; height: calc(100vh - 104px); min-height: 520px; max-height: 760px; }
+.historia__panel { height: 100%; border-radius: var(--r-xl); background: var(--marino); color: var(--marfil); padding: clamp(28px, 4vw, 56px); display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(24px, 4vw, 64px); overflow: hidden; position: relative; }
+.historia__izq { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 0; }
+.historia__izq .h2 { max-width: 12ch; }
+.historia__lista { list-style: none; margin: 0; padding: 0 0 0 28px; position: relative; display: grid; gap: 18px; }
+.historia__lista::before { content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: rgba(250, 248, 243, 0.18); border-radius: 2px; }
+.historia__linea { position: absolute; left: 6px; top: 6px; width: 2px; height: calc(100% - 12px); background: var(--lavanda); border-radius: 2px; transform-origin: top; transform: scaleY(0.25); transition: transform 700ms var(--ease-out); }
+.historia__lista li { position: relative; font-size: 1.05rem; font-weight: 600; color: rgba(250, 248, 243, 0.5); transition: color var(--dur-base); }
+.historia__lista li::before { content: ""; position: absolute; left: -27px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--marino); border: 2px solid rgba(250, 248, 243, 0.35); transition: background var(--dur-base), border-color var(--dur-base); }
+.historia__lista li.hecho, .historia__lista li.activo { color: var(--marfil); }
+.historia__lista li.hecho::before, .historia__lista li.activo::before { background: var(--lavanda); border-color: var(--lavanda); }
+.historia__der { position: relative; display: grid; grid-template-rows: 1fr auto; align-items: end; min-height: 0; }
+.historia__escenario { position: relative; display: grid; place-items: center; min-height: 0; height: 100%; }
+.historia__escenario::before { content: ""; position: absolute; width: min(78%, 420px); aspect-ratio: 1; border-radius: 50%; background: rgba(163, 175, 209, 0.14); }
+.historia__escenario .nubo { position: relative; width: min(72%, 380px); transition: transform 900ms var(--ease-out); }
+.historia[data-paso="1"] .historia__escenario .nubo { transform: translateX(-8%); }
+.historia[data-paso="2"] .historia__escenario .nubo { transform: translateX(6%) rotate(-2deg); }
+.historia[data-paso="3"] .historia__escenario .nubo { transform: translateY(-4%) scale(1.04); }
+.historia__prop { position: absolute; right: 4%; top: 12%; width: 92px; height: 92px; border-radius: 28px; display: grid; place-items: center; background: var(--lavanda); color: var(--marino); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22); }
+.historia__prop .i { width: 44px; height: 44px; stroke-width: 1.5; }
+.historia__prop.cambia { animation: prop-cambia 700ms var(--ease-rebote) both; }
+@keyframes prop-cambia { from { opacity: 0; transform: translateY(18px) rotate(-12deg) scale(0.7); } to { opacity: 1; transform: none; } }
+.historia__texto { min-height: 9.5em; }
+.historia__contador { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--lavanda); }
+.historia__texto h3 { margin: 8px 0 10px; font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.6rem); letter-spacing: -0.03em; line-height: 1.05; }
+.historia__texto p { margin: 0; font-size: clamp(1.05rem, 1rem + 0.4vw, 1.3rem); line-height: 1.45; color: rgba(250, 248, 243, 0.8); max-width: 34ch; }
+.historia__texto.cambia > * { animation: texto-entra 600ms var(--ease-out) both; }
+@keyframes texto-entra { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.historia__texto.cambia > *:nth-child(2) { animation-delay: 60ms; }
+.historia__texto.cambia > *:nth-child(3) { animation-delay: 120ms; }
+.historia__precio { display: inline-flex; align-items: baseline; gap: 10px; width: fit-content; padding: 10px 16px; border-radius: var(--r-pill); background: rgba(250, 248, 243, 0.1); font-size: 0.9375rem; }
+.historia__precio strong { font-size: 1.35rem; letter-spacing: -0.02em; }
+.historia__barra-m { display: none; }
+@media (max-width: 900px) {
+  .historia__escena { top: 72px; height: calc(100svh - 168px); min-height: 480px; }
+  .historia__panel { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding: 22px; gap: 12px; }
+  .historia__lista, .historia__izq .btn { display: none; }
+  .historia__izq { gap: 10px; }
+  .historia__izq .h2 { font-size: 1.6rem; max-width: none; }
+  .historia__barra-m { display: block; height: 3px; border-radius: 3px; background: rgba(250, 248, 243, 0.18); overflow: hidden; }
+  .historia__barra-m span { display: block; height: 100%; background: var(--lavanda); transform-origin: left; transform: scaleX(0.25); transition: transform 700ms var(--ease-out); }
+  .historia__prop { width: 64px; height: 64px; border-radius: 20px; }
+  .historia__prop .i { width: 30px; height: 30px; }
+  .historia__texto { min-height: 8.5em; }
+}
+
+.mito-a { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.mito-a__lado { display: grid; gap: 18px; justify-items: start; }
+.mito-a__lado .nubo { width: min(260px, 70%); }
+.mito-a .mito { min-height: 360px; }
+.mito-a .mito__cara { min-height: 360px; }
+.mito-a .mito__frente, .mito-a .mito__vuelta { border-radius: var(--r-xl); padding: clamp(28px, 4vw, 48px); }
+@media (max-width: 900px) { .mito-a { grid-template-columns: 1fr; } .mito-a__lado .nubo { width: 150px; } }
+
+.hero-n { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; padding-top: clamp(24px, 4vw, 56px); text-align: center; }
+.hero-n::before { content: ""; position: absolute; left: 50%; bottom: -30%; width: min(1100px, 140vw); aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(closest-side, rgba(163, 175, 209, 0.45), transparent 70%); pointer-events: none; }
+.hero-n__tx { position: relative; z-index: 2; display: grid; gap: 24px; justify-items: center; }
+.hero-n__tx .h1-hero { max-width: 15ch; font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.4rem); }
+.hero-n__tx .lead { max-width: 52ch; }
+.hero-n__acciones { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.hero-n__nubo { position: relative; align-self: end; justify-self: center; width: max(320px, min(112vw, 820px, calc((100svh - 470px) * 2.1))); margin-top: clamp(20px, 3vw, 36px); z-index: 1; }
+.hero-n__nubo .nubo-asoma { animation: asoma-grande 1.3s var(--ease-rebote) 0.5s both; }
+@keyframes asoma-grande { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.hero-n .chip-flota.uno { right: 92%; top: 22%; white-space: nowrap; animation-delay: 1.3s; }
+.hero-n .chip-flota.dos { left: 92%; top: 46%; white-space: nowrap; animation-delay: 1.5s; }
+.hero-n + .franja-sec .franja { border-top: 0; }
+@media (max-width: 720px) {
+  .hero-n { min-height: 0; padding-bottom: 0; }
+  .hero-n .chip-flota.uno { right: auto; left: 4%; top: auto; bottom: 66%; }
+  .hero-n .chip-flota.dos { display: none; }
+}
 
 .doctora-a { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(28px, 5vw, 80px); align-items: center; }
 .doctora-a .foto { aspect-ratio: 3 / 4; border-radius: var(--r-xl); }
@@ -97,6 +172,12 @@ def miedos():
     return "".join(f'<button class="miedo" data-miedo="{m[1]}" data-estado="{m[2]}" aria-pressed="{"true" if i == 0 else "false"}">{m[0]}</button>' for i, m in enumerate(MIEDOS))
 
 btns, dets = pasos()
+PROPS = ["stethoscope", "scan", "mood-smile", "file-text"]
+marcas = "".join(f'<div class="historia__marca" data-historia-marca="{i}" style="top: calc({i} * 80vh)"></div>' for i in range(4))
+lista = "".join(f'<li data-historia-item>{p[0]}</li>' for p in PASOS)
+p0t, p0d = PASOS[0][0], PASOS[0][1]
+datos_historia = [{"t": p[0], "d": p[1], "e": p[2], "i": PROPS[k]} for k, p in enumerate(PASOS)]
+import json as _json
 html = cabeza("Dental Díaz · Inicio · Propuesta A", CSS) + nav("A · Clara") + f'''
 <main>
 <section class="hero-a">
@@ -140,18 +221,33 @@ html = cabeza("Dental Díaz · Inicio · Propuesta A", CSS) + nav("A · Clara") 
   </div>
 </section>
 
-<section class="seccion" id="primera-visita" style="padding-top: 0">
+<section class="seccion historia" id="primera-visita" style="padding-top: 0" data-historia data-paso="0">
   <div class="contenedor">
-    <div class="visita-a revela" data-pasos>
-      <div class="visita-a__escena"><div class="nubo" data-nubo="escucha" data-mirada aria-label="Nubo"></div></div>
-      <div>
-        <h2 class="h2">Así es tu primera visita</h2>
-        <div class="visita-a__precio">Valoración de 45 minutos <strong>$350</strong></div>
-        <div class="pasos-int" style="margin-top: 40px">
-          <div class="pasos-int__nav"><span class="pasos-int__riel"></span><span class="pasos-int__barra" data-progreso></span>{btns}</div>
-          {dets}
+    <div class="historia__pista">
+      {marcas}
+      <div class="historia__escena">
+        <div class="historia__panel">
+          <div class="historia__izq">
+            <div style="display:grid; gap: 14px">
+              <h2 class="h2">Así es tu primera visita</h2>
+              <div class="historia__precio">Valoración de 45 minutos <strong>$350</strong></div>
+              <div class="historia__barra-m"><span data-historia-barra-m></span></div>
+            </div>
+            <ol class="historia__lista"><span class="historia__linea" data-historia-linea></span>{lista}</ol>
+            <a class="btn btn--claro" href="#agenda" style="width: fit-content">Agenda tu valoración {ic("arrow-right","flecha")}</a>
+          </div>
+          <div class="historia__der">
+            <div class="historia__escenario">
+              <div class="nubo" data-nubo="escucha" data-mirada aria-label="Nubo"></div>
+              <div class="historia__prop" data-historia-prop>{ic("stethoscope")}</div>
+            </div>
+            <div class="historia__texto" data-historia-texto aria-live="polite">
+              <span class="historia__contador">Paso 1 de 4</span>
+              <h3>{p0t}</h3>
+              <p>{p0d}</p>
+            </div>
+          </div>
         </div>
-        <a class="btn btn--claro" href="#agenda" style="margin-top: 36px">Agenda tu valoración {ic("arrow-right","flecha")}</a>
       </div>
     </div>
   </div>
@@ -184,6 +280,23 @@ html = cabeza("Dental Díaz · Inicio · Propuesta A", CSS) + nav("A · Clara") 
       </ul>
       <a class="enlace" href="#">Conoce la clínica {ic("arrow-right")}</a>
     </div>
+  </div>
+</section>
+
+<section class="seccion" style="padding-top: 0">
+  <div class="contenedor mito-a">
+    <div class="mito-a__lado revela">
+      <div class="nubo" data-nubo="sorprendido" data-mirada aria-label="Nubo sorprendido"></div>
+      <h2 class="h2">¿Mito o realidad?</h2>
+      <p class="texto" style="font-size: var(--fs-lead); max-width: 34ch">Un mito que la doctora quiere aclarar. Toca la tarjeta.</p>
+      <a class="enlace" href="#">Más en Nubo explica {ic("arrow-right")}</a>
+    </div>
+    <button class="mito revela" data-voltear aria-pressed="false" aria-label="Voltear tarjeta del mito" style="--retraso: 120ms">
+      <div class="mito__cara">
+        <div class="mito__frente"><span class="mito__pista">{ic("refresh")} Mito o realidad</span><p class="h2" style="margin:0; max-width: 16ch">"Con la edad, los dientes se tienen que caer"</p><span class="mito__pista">Toca para ver la respuesta</span></div>
+        <div class="mito__vuelta"><span class="mito__pista">{ic("check")} Es un mito</span><p class="h3" style="margin:0; max-width: 28ch; font-weight: 600">Perder dientes no es parte normal de envejecer. Con revisiones y cuidado, te pueden acompañar toda la vida.</p><span class="mito__pista">Respuesta por validar con la doctora</span></div>
+      </div>
+    </button>
   </div>
 </section>
 
@@ -230,5 +343,31 @@ html = cabeza("Dental Díaz · Inicio · Propuesta A", CSS) + nav("A · Clara") 
 </main>
 ''' + pie()
 
+html = html.replace("</main>", "</main>\n<script>window.HISTORIA = " + _json.dumps(datos_historia, ensure_ascii=False) + ";</script>")
 open("../inicio-a.html", "w").write(html)
+
+ini = html.index('<section class="hero-a">')
+fin = html.index('</section>', ini) + len('</section>')
+franja = html[html.index('<div class="franja revela"', ini):html.index('</section>', ini)]
+franja = franja[:franja.rindex('</div>')]
+hero_n = f'''<section class="hero-n">
+  <div class="contenedor hero-n__tx">
+    <h1 class="h1-hero" data-palabras>Te explicamos <span class="subrayado">todo</span> antes de empezar</h1>
+    <p class="lead">Clínica dental familiar en Terán. Revisamos con calma, te enseñamos tus radiografías y tu plan va por escrito.</p>
+    <div class="hero-n__acciones">
+      <a class="btn btn--primario" href="#agenda">Agenda tu valoración {ic("arrow-right","flecha")}</a>
+      <a class="btn btn--secundario" href="{WA}" target="_blank" rel="noopener">{ic("brand-whatsapp")} Escríbenos</a>
+    </div>
+  </div>
+  <div class="hero-n__nubo">
+    <div class="nubo nubo-asoma" data-nubo="hero" data-mirada aria-label="Nubo asomándose"></div>
+    <div class="chip-flota uno"><span class="chip-flota__icono">{ic("star-filled")}</span><div><strong>4.9 en Google</strong><span>5 reseñas</span></div></div>
+    <div class="chip-flota dos"><span class="chip-flota__icono">{ic("receipt-2")}</span><div><strong>Valoración $350</strong><span>Se descuenta de tu tratamiento</span></div></div>
+  </div>
+</section>
+<section class="franja-sec"><div class="contenedor">{franja.replace('style="margin-top: clamp(48px, 6vw, 80px)"', '')}</div></section>'''
+html2 = html[:ini] + hero_n + html[fin:]
+html2 = html2.replace("Propuesta A · Clara", "Propuesta A2 · Hero con Nubo").replace("Inicio · Propuesta A<", "Inicio · Propuesta A2<")
+open("../inicio-a2.html", "w").write(html2)
+print("ok A2", len(html2))
 print("ok A", len(html))

@@ -12,7 +12,7 @@
     svg.setAttribute('viewBox', isHero ? '64 28 310 147' : '0 0 456 390');
     svg.setAttribute('role', 'img');
     svg.setAttribute('aria-label', el.getAttribute('aria-label') || 'Nubo, la mascota de Dental Díaz');
-    if (isHero) svg.style.overflow = 'hidden';
+    if (isHero) { svg.style.overflow = 'hidden'; svg.setAttribute('preserveAspectRatio', 'xMidYMax meet'); }
     svg.innerHTML = '<g class="n-respira' + (el.hasAttribute('data-entrar') ? ' entrar' : '') + '">' + markup + '</g>';
     el.innerHTML = '';
     el.appendChild(svg);

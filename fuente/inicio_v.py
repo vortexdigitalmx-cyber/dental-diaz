@@ -224,6 +224,7 @@ hero_a = seccion(H, '<section class="hero-a">'.replace('<section ', '')) if Fals
 hero_a = hero_a[:hero_a.index('<div class="contenedor">\n    <div class="franja revela"')] + '</section>'
 hero_a = hero_a.replace('<section class="hero-a">', '<section class="hero-a" data-hero="foto" hidden>')
 hero_n_sola = hero_n_sola.replace('<section class="hero-n">', '<section class="hero-n" data-hero="nubo">')
+hero_n_sola = hero_n_sola.replace('<div class="hero-n__nubo">', '<div class="hero-n__nubo"><div class="hero-n__figura">').replace('<span>Se descuenta de tu tratamiento</span></div></div>\n  </div>\n</section>', '<span>Se descuenta de tu tratamiento</span></div></div>\n  </div></div>\n</section>')
 
 CONFIANZA = [("map-pin", "Desde 2021 en Terán", "A un costado del parque"), ("scan", "Radiografía digital", "Incluida en tu valoración"), ("credit-card", "Hasta 6 meses sin intereses", "Aplican restricciones"), ("file-text", "Precio por escrito", "Antes de empezar")]
 confianza = '<section class="confianza"><div class="contenedor"><ul class="confianza__lista revela" data-escalonar>' + "".join(
@@ -243,10 +244,33 @@ CSS_F = CSS_V2 + CSS_V1[len(CSS_V):] + '''
 @media (max-width: 420px) { .confianza__lista li { padding: 12px; gap: 10px; } .confianza__icono { width: 38px; height: 38px; border-radius: 12px; } }
 
 [data-hero][hidden] { display: none !important; }
+.hero-n { height: calc(100svh - 76px); min-height: 600px; max-height: 1100px; padding-bottom: 0; }
+.hero-n__nubo { position: relative; align-self: stretch; justify-self: stretch; width: auto; min-height: 150px; margin-top: clamp(16px, 2.5vw, 32px); }
+.hero-n__figura { position: absolute; left: 50%; bottom: 0; height: 100%; aspect-ratio: 310 / 147; max-width: 112vw; transform: translateX(-50%); }
+.hero-n__figura .nubo { width: 100%; height: 100%; }
+.hero-n__figura .nubo svg { width: 100%; height: 100%; }
+.hero-n .chip-flota.uno { right: 90%; left: auto; top: 18%; }
+.hero-n .chip-flota.dos { left: 90%; right: auto; top: 46%; }
+[data-hero="nubo"] + [data-hero="foto"] + .confianza .confianza__lista { margin-top: 0 !important; }
+.confianza { padding-top: clamp(20px, 3vw, 32px); }
+.hero-a { min-height: calc(100svh - 76px); display: grid; align-items: center; padding-block: clamp(16px, 3vh, 40px); }
+.hero-a .h1-hero { font-size: clamp(2.5rem, 1.4rem + 3vw, 4.3rem); }
+.hero-a__media .foto { aspect-ratio: auto; height: clamp(340px, calc(100svh - 300px), 640px); }
+.hero-a__nubo { width: 34%; }
+@media (max-width: 900px) { .hero-a { min-height: 0; } .hero-a__media .foto { height: auto; aspect-ratio: 4 / 4.4; } }
+
+#preocupaciones.banda { padding-block: clamp(56px, 6vw, 88px); }
+.miedos-v2 { grid-template-columns: 1fr minmax(240px, 300px) 1fr; align-items: center; }
+.miedos-v2__titulo { margin-bottom: clamp(24px, 3vw, 40px); }
+.miedos-v2__centro { gap: 14px; }
+.miedos-v2__centro .circulo-nubo { width: min(100%, 280px); }
+.miedos-v2__centro .burbuja { min-height: 0; font-size: 1.05rem; padding: 18px 20px; }
+@media (max-width: 900px) { .miedos-v2 { grid-template-columns: 1fr 1fr; gap: 12px; } .miedos-v2__centro .circulo-nubo { width: 200px; } .miedo-c { padding: 16px; } .miedo-c strong { font-size: 1rem; } }
+@media (max-width: 960px) { .hero-n .chip-flota.uno { right: auto; left: 6%; top: -6%; } .hero-n .chip-flota.dos { display: none; } }
 .selector-hero { position: fixed; left: 16px; bottom: 16px; z-index: 70; display: flex; align-items: center; gap: 4px; padding: 4px 4px 4px 14px; border-radius: 999px; background: var(--marino); color: var(--marfil); box-shadow: var(--sombra-flotante); font-size: 0.8125rem; font-weight: 600; }
 .selector-hero button { border: 0; cursor: pointer; padding: 8px 14px; border-radius: 999px; background: transparent; color: rgba(250, 248, 243, 0.75); font-size: 0.8125rem; font-weight: 600; }
 .selector-hero button[aria-pressed="true"] { background: var(--marfil); color: var(--marino); }
-@media (max-width: 960px) { .selector-hero { bottom: auto; top: 72px; left: auto; right: 12px; padding: 3px; } .selector-hero > span { display: none; } .selector-hero button { padding: 6px 12px; } .hero-n { min-height: calc(100svh - 64px - 84px); padding-top: 64px; } .hero-a { padding-top: 64px; } }
+@media (max-width: 960px) { .selector-hero { bottom: auto; top: 72px; left: auto; right: 12px; padding: 3px; } .selector-hero > span { display: none; } .selector-hero button { padding: 6px 12px; } .hero-n { height: calc(100svh - 64px - 84px); min-height: 540px; padding-top: 64px; } .hero-a { padding-top: 64px; } }
 '''
 
 SELECTOR = '''<div class="selector-hero" role="group" aria-label="Elegir hero (solo demo)"><span>Hero</span><button type="button" data-elegir-hero="nubo" aria-pressed="true">Nubo</button><button type="button" data-elegir-hero="foto" aria-pressed="false">Fotos</button></div>
@@ -272,7 +296,7 @@ SELECTOR = '''<div class="selector-hero" role="group" aria-label="Elegir hero (s
 })();
 </script>'''
 
-final = "\n".join([hero_n_sola, hero_a, confianza, trat_v2(), historia, agenda_html(pasos=True), miedos_v1(), doctora, galeria_v2(), resenas_v2(), mito, visitanos, cierre])
+final = "\n".join([hero_n_sola, hero_a, confianza, trat_v2(), historia, agenda_html(pasos=True), miedos_v2(), doctora, galeria_v2(), resenas_v2(), mito, visitanos, cierre])
 html_f = cabeza("Dental Díaz · Clínica dental familiar en Terán, Tuxtla", CSS_F) + nav("final") + "<main>\n" + final + "\n</main>\n" + historia_script + GALERIA_JS + SELECTOR + pie()
 html_f = html_f.replace('<div class="propuesta-tag">Propuesta final</div>\n', '')
 open("../index.html", "w").write(html_f)

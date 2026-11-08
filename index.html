@@ -261,10 +261,33 @@
 @media (max-width: 420px) { .confianza__lista li { padding: 12px; gap: 10px; } .confianza__icono { width: 38px; height: 38px; border-radius: 12px; } }
 
 [data-hero][hidden] { display: none !important; }
+.hero-n { height: calc(100svh - 76px); min-height: 600px; max-height: 1100px; padding-bottom: 0; }
+.hero-n__nubo { position: relative; align-self: stretch; justify-self: stretch; width: auto; min-height: 150px; margin-top: clamp(16px, 2.5vw, 32px); }
+.hero-n__figura { position: absolute; left: 50%; bottom: 0; height: 100%; aspect-ratio: 310 / 147; max-width: 112vw; transform: translateX(-50%); }
+.hero-n__figura .nubo { width: 100%; height: 100%; }
+.hero-n__figura .nubo svg { width: 100%; height: 100%; }
+.hero-n .chip-flota.uno { right: 90%; left: auto; top: 18%; }
+.hero-n .chip-flota.dos { left: 90%; right: auto; top: 46%; }
+[data-hero="nubo"] + [data-hero="foto"] + .confianza .confianza__lista { margin-top: 0 !important; }
+.confianza { padding-top: clamp(20px, 3vw, 32px); }
+.hero-a { min-height: calc(100svh - 76px); display: grid; align-items: center; padding-block: clamp(16px, 3vh, 40px); }
+.hero-a .h1-hero { font-size: clamp(2.5rem, 1.4rem + 3vw, 4.3rem); }
+.hero-a__media .foto { aspect-ratio: auto; height: clamp(340px, calc(100svh - 300px), 640px); }
+.hero-a__nubo { width: 34%; }
+@media (max-width: 900px) { .hero-a { min-height: 0; } .hero-a__media .foto { height: auto; aspect-ratio: 4 / 4.4; } }
+
+#preocupaciones.banda { padding-block: clamp(56px, 6vw, 88px); }
+.miedos-v2 { grid-template-columns: 1fr minmax(240px, 300px) 1fr; align-items: center; }
+.miedos-v2__titulo { margin-bottom: clamp(24px, 3vw, 40px); }
+.miedos-v2__centro { gap: 14px; }
+.miedos-v2__centro .circulo-nubo { width: min(100%, 280px); }
+.miedos-v2__centro .burbuja { min-height: 0; font-size: 1.05rem; padding: 18px 20px; }
+@media (max-width: 900px) { .miedos-v2 { grid-template-columns: 1fr 1fr; gap: 12px; } .miedos-v2__centro .circulo-nubo { width: 200px; } .miedo-c { padding: 16px; } .miedo-c strong { font-size: 1rem; } }
+@media (max-width: 960px) { .hero-n .chip-flota.uno { right: auto; left: 6%; top: -6%; } .hero-n .chip-flota.dos { display: none; } }
 .selector-hero { position: fixed; left: 16px; bottom: 16px; z-index: 70; display: flex; align-items: center; gap: 4px; padding: 4px 4px 4px 14px; border-radius: 999px; background: var(--marino); color: var(--marfil); box-shadow: var(--sombra-flotante); font-size: 0.8125rem; font-weight: 600; }
 .selector-hero button { border: 0; cursor: pointer; padding: 8px 14px; border-radius: 999px; background: transparent; color: rgba(250, 248, 243, 0.75); font-size: 0.8125rem; font-weight: 600; }
 .selector-hero button[aria-pressed="true"] { background: var(--marfil); color: var(--marino); }
-@media (max-width: 960px) { .selector-hero { bottom: auto; top: 72px; left: auto; right: 12px; padding: 3px; } .selector-hero > span { display: none; } .selector-hero button { padding: 6px 12px; } .hero-n { min-height: calc(100svh - 64px - 84px); padding-top: 64px; } .hero-a { padding-top: 64px; } }
+@media (max-width: 960px) { .selector-hero { bottom: auto; top: 72px; left: auto; right: 12px; padding: 3px; } .selector-hero > span { display: none; } .selector-hero button { padding: 6px 12px; } .hero-n { height: calc(100svh - 64px - 84px); min-height: 540px; padding-top: 64px; } .hero-a { padding-top: 64px; } }
 
 </style>
 </head>
@@ -304,11 +327,11 @@
       <a class="btn btn--secundario" href="https://wa.me/529611385698?text=Hola%2C%20quiero%20informes%20de%20una%20valoraci%C3%B3n" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-brand-whatsapp"/></svg> Escríbenos</a>
     </div>
   </div>
-  <div class="hero-n__nubo">
+  <div class="hero-n__nubo"><div class="hero-n__figura">
     <div class="nubo nubo-asoma" data-nubo="hero" data-mirada aria-label="Nubo asomándose"></div>
     <div class="chip-flota uno"><span class="chip-flota__icono"><svg class="i i--relleno" aria-hidden="true"><use href="#i-star-filled"/></svg></span><div><strong>4.9 en Google</strong><span>5 reseñas</span></div></div>
     <div class="chip-flota dos"><span class="chip-flota__icono"><svg class="i" aria-hidden="true"><use href="#i-receipt-2"/></svg></span><div><strong>Valoración $350</strong><span>Se descuenta de tu tratamiento</span></div></div>
-  </div>
+  </div></div>
 </section>
 
 <section class="hero-a" data-hero="foto" hidden>
@@ -402,10 +425,11 @@
     </div>
   </div>
 </section>
-<section class="banda" id="preocupaciones"><div class="contenedor miedos-v1" data-miedos>
-<div class="revela"><h2 class="h2">Sabemos qué te preocupa</h2><p class="texto" style="margin: 16px 0 28px; font-size: var(--fs-lead); max-width: 38ch; color: var(--marino)">Toca lo que más te pesa. Nubo te cuenta cómo lo cuidamos.</p><div class="miedos__opciones"><button class="miedo" data-miedo="Antes de cada paso te explicamos qué vamos a hacer y vamos a tu ritmo. Puedes preguntar todo lo que quieras." data-estado="empatico" aria-pressed="true">Me da miedo el dolor</button><button class="miedo" data-miedo="Lo sabes desde la valoración: tu plan va por escrito, con el precio. Hay meses sin intereses y abonos en prótesis." data-estado="explica" aria-pressed="false">No sé cuánto me va a costar</button><button class="miedo" data-miedo="Te enseñamos tus radiografías y te explicamos qué necesitas y por qué. Tú decides qué hacer y cuándo." data-estado="escucha" aria-pressed="false">Que me vendan de más</button><button class="miedo" data-miedo="Cuéntanos qué pasó antes de empezar. Lo tomamos en cuenta y vamos con calma, sin regaños." data-estado="empatico" aria-pressed="false">Tuve una mala experiencia</button></div></div>
-<div class="miedos-v1__conversa revela" style="--retraso: 120ms"><div class="circulo-nubo"><div class="nubo" data-nubo="empatico" data-mirada aria-label="Nubo"></div></div><div class="burbuja" data-respuesta aria-live="polite">Antes de cada paso te explicamos qué vamos a hacer y vamos a tu ritmo. Puedes preguntar todo lo que quieras.</div></div>
-</div></section>
+<section class="banda" id="preocupaciones"><div class="contenedor" data-miedos>
+<div class="miedos-v2__titulo revela"><h2 class="h2">Sabemos qué te preocupa</h2><p class="texto" style="margin-top: 14px; font-size: var(--fs-lead); color: var(--marino)">Toca lo que más te pesa.</p></div>
+<div class="miedos-v2"><div class="miedos-v2__col"><button class="miedo-c revela" data-miedo="Antes de cada paso te explicamos qué vamos a hacer y vamos a tu ritmo. Puedes preguntar todo lo que quieras." data-estado="empatico" aria-pressed="true"><svg class="i" aria-hidden="true"><use href="#i-mood-smile"/></svg><strong>Me da miedo el dolor</strong></button><button class="miedo-c revela" data-miedo="Lo sabes desde la valoración: tu plan va por escrito, con el precio. Hay meses sin intereses y abonos en prótesis." data-estado="explica" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-receipt-2"/></svg><strong>No sé cuánto me va a costar</strong></button></div>
+<div class="miedos-v2__centro revela"><div class="circulo-nubo"><div class="nubo" data-nubo="empatico" data-mirada aria-label="Nubo"></div></div><div class="burbuja" data-respuesta aria-live="polite">Antes de cada paso te explicamos qué vamos a hacer y vamos a tu ritmo. Puedes preguntar todo lo que quieras.</div></div>
+<div class="miedos-v2__col"><button class="miedo-c revela" data-miedo="Te enseñamos tus radiografías y te explicamos qué necesitas y por qué. Tú decides qué hacer y cuándo." data-estado="escucha" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-scan"/></svg><strong>Que me vendan de más</strong></button><button class="miedo-c revela" data-miedo="Cuéntanos qué pasó antes de empezar. Lo tomamos en cuenta y vamos con calma, sin regaños." data-estado="empatico" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-heart-handshake"/></svg><strong>Tuve una mala experiencia</strong></button></div></div></div></section>
 <section class="seccion" id="clinica" style="padding-top: 0">
   <div class="contenedor doctora-a">
     <div class="revela"><div class="foto "><div class="foto__guia"><b><svg class="i" aria-hidden="true"><use href="#i-camera"/></svg> Foto 2 · Retrato</b>La doctora de frente, sonriendo, con bata. Fondo de la clínica desenfocado. Vertical 3:4.</div></div></div>

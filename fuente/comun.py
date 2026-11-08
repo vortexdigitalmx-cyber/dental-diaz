@@ -28,6 +28,7 @@ def cabeza(titulo, css_extra):
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/inicio.css">
+<link rel="stylesheet" href="assets/css/agenda.css">
 <style>
 {css_extra}
 </style>
@@ -92,6 +93,7 @@ def pie():
 <script src="assets/js/nubo.js"></script>
 <script src="assets/js/ui.js"></script>
 <script src="assets/js/inicio.js"></script>
+<script src="assets/js/agenda.js"></script>
 </body>
 </html>
 '''
@@ -123,3 +125,51 @@ MIEDOS = [
   ("Que me vendan de más", "Te enseñamos tus radiografías y te explicamos qué necesitas y por qué. Tú decides qué hacer y cuándo.", "escucha"),
   ("Tuve una mala experiencia", "Cuéntanos qué pasó antes de empezar. Lo tomamos en cuenta y vamos con calma, sin regaños.", "empatico"),
 ]
+
+
+INTERESES = ["Blanqueamiento", "Ortodoncia", "Prótesis", "Limpieza o revisión", "No estoy seguro"]
+COMO = ["Instagram", "Facebook", "Google", "Me recomendaron", "Pasé por ahí", "Otro"]
+
+def _chips(grupo, opciones):
+    return '<div class="chips">' + "".join(f'<button type="button" class="chip" data-opcion="{grupo}" aria-pressed="false">{o}</button>' for o in opciones) + '</div>'
+
+def agenda_html(pasos=False, sec_id="agenda"):
+    b_interes = f'''<fieldset class="agenda-bloque" data-bloque="interes"><legend>¿Qué te interesa?</legend>{_chips("interes", INTERESES)}<span class="agenda-error">Elige una opción.</span></fieldset>'''
+    b_para = f'''<fieldset class="agenda-bloque" data-bloque="para"><legend>¿Para quién es la cita?</legend>{_chips("para", ["Para mí", "Para un niño"])}<span class="agenda-error">Elige una opción.</span></fieldset>'''
+    b_dia = '''<fieldset class="agenda-bloque" data-bloque="dia"><legend>Día y hora <span class="opcional">La valoración dura 45 min</span></legend><div class="agenda-dias" data-dias></div><div class="agenda-horas" data-horas></div><span class="agenda-error">Elige día y hora.</span></fieldset>'''
+    b_datos = '''<div class="agenda-campos">
+      <div class="campo"><label for="ag-nombre">Tu nombre</label><input id="ag-nombre" name="nombre" type="text" placeholder="Ana López" autocomplete="name"><span class="campo__ayuda">Como quieres que te llamemos.</span></div>
+      <div class="campo"><label for="ag-wa">WhatsApp</label><input id="ag-wa" name="whatsapp" type="tel" inputmode="numeric" placeholder="961 123 4567" autocomplete="tel"><span class="campo__ayuda">Ahí te confirmamos tu cita.</span></div>
+    </div>'''
+    b_como = f'''<fieldset class="agenda-bloque" data-bloque="como"><legend>¿Cómo nos conociste?</legend>{_chips("como", COMO)}<span class="agenda-error">Elige una opción.</span></fieldset>'''
+    nota = '<p class="nota-precio" style="margin:0">Valoración <strong>$350</strong>, se descuenta de tu tratamiento. Sin pago en línea.</p>'
+    if pasos:
+        cuerpo = f'''<div class="agenda-pasos" aria-hidden="true"><span class="activo" data-indicador><b>1</b> Tu cita</span><i></i><span data-indicador><b>2</b> Tus datos</span></div>
+    <div class="agenda-paso" data-paso-agenda="1">{b_interes}{b_para}{b_dia}<div class="agenda-acciones"><button type="button" class="btn btn--primario" data-continuar>Continuar {ic("arrow-right","flecha")}</button></div></div>
+    <div class="agenda-paso" data-paso-agenda="2" hidden><div class="agenda-resumen" data-resumen></div>{b_datos}{b_como}<div class="agenda-acciones"><button class="btn btn--primario" type="submit">Confirmar valoración {ic("arrow-right","flecha")}</button></div>{nota}</div>'''
+    else:
+        cuerpo = f'''{b_interes}{b_para}{b_dia}{b_datos}{b_como}<div class="agenda-acciones"><button class="btn btn--primario" type="submit">Confirmar valoración {ic("arrow-right","flecha")}</button></div>{nota}'''
+    return f'''<section class="seccion agenda-sec" id="{sec_id}" style="padding-top: 0">
+  <div class="contenedor">
+    <div class="agenda-caja revela" data-agenda>
+      <div class="agenda-lado">
+        <div style="display:grid; gap: 16px">
+          <h2 class="h2">Agenda tu valoración</h2>
+          <p>Elige día y hora. Te confirmamos por WhatsApp.</p>
+          <ul class="agenda-incluye"><li>{ic("check")} Revisión completa</li><li>{ic("check")} Dos radiografías periapicales</li><li>{ic("check")} Diagnóstico y plan por escrito</li></ul>
+        </div>
+        <div class="nubo" data-nubo="escucha" data-mirada aria-label="Nubo"></div>
+      </div>
+      <div class="agenda-form">
+        <form novalidate>{cuerpo}</form>
+        <div class="agenda-ok" aria-live="polite">
+          <div class="nubo" data-nubo="celebra" aria-label="Nubo celebrando"></div>
+          <h3 class="h3" style="margin:0">Listo, <span data-ok-nombre></span>. Tu valoración quedó apartada</h3>
+          <ul class="agenda-ok__ficha" data-ok-ficha></ul>
+          <a class="btn btn--whatsapp" data-ok-wa href="#" target="_blank" rel="noopener">{ic("brand-whatsapp")} Confirmar por WhatsApp</a>
+          <button type="button" class="enlace" data-otra style="border:0; background-color: transparent; cursor:pointer">Agendar otra cita</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>'''

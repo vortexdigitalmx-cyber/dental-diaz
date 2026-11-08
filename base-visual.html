@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Base visual · Dental Díaz</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.11.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<style>
+  .bv-cab { display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: baseline; margin-bottom: 48px; }
+  .bv-cab .mono { color: var(--texto-suave); padding-top: 10px; }
+  .bv-cab .texto { margin-top: 12px; max-width: 60ch; }
+  @media (max-width: 720px) { .bv-cab { grid-template-columns: 1fr; gap: 6px; } }
+  .bv-sep { border: 0; border-top: 1px solid var(--linea); margin: 0; }
+  .bv-indice { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+  .bv-indice a { text-decoration: none; }
+  .bv-portada { padding-block: clamp(56px, 8vw, 104px) clamp(32px, 4vw, 48px); }
+  .bv-portada .display { max-width: 14ch; margin-top: 18px; }
+  .bv-portada .lead { max-width: 52ch; margin-top: 20px; }
+
+  .hero-m { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .hero-m__tx { display: grid; gap: 22px; }
+  .hero-m__tx .display { max-width: 12ch; }
+  .hero-m__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .hero-m__media { position: relative; }
+  .hero-m__media .foto { aspect-ratio: 4 / 5; border-radius: var(--r-xl); }
+  .hero-m__nubo { position: absolute; left: -6%; bottom: -1px; width: 58%; overflow: hidden; border-radius: 0 0 0 var(--r-xl); pointer-events: none; }
+  .hero-m__nubo .nubo { transform-origin: bottom; }
+  .hero-m__sello {
+    position: absolute; right: -14px; top: 28px; padding: 14px 16px; border-radius: var(--r-md);
+    background: var(--marfil); box-shadow: var(--sombra-flotante); display: grid; gap: 4px; min-width: 168px;
+  }
+  .hero-m__sello strong { font-size: 1.6rem; letter-spacing: -0.03em; line-height: 1; }
+  @media (max-width: 900px) {
+    .hero-m { grid-template-columns: 1fr; }
+    .hero-m__media { max-width: 520px; }
+    .hero-m__sello { right: 12px; }
+  }
+
+  .colores { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+  .color { border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--linea); background: var(--marfil); }
+  .color__m { height: 148px; padding: 14px; display: flex; align-items: flex-end; }
+  .color__d { padding: 14px 16px 18px; display: grid; gap: 4px; }
+  .color__d strong { font-size: 1rem; }
+  .color__d .texto { font-size: 0.8125rem; line-height: 1.4; }
+  .contraste { display: inline-flex; padding: 3px 9px; border-radius: var(--r-pill); font-family: var(--font-mono); font-size: 0.75rem; }
+  @media (max-width: 960px) { .colores { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  .tipos { display: grid; gap: 0; }
+  .tipo { display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: baseline; padding: 22px 0; border-top: 1px solid var(--linea); }
+  .tipo .mono { color: var(--texto-suave); line-height: 1.5; }
+  @media (max-width: 720px) { .tipo { grid-template-columns: 1fr; gap: 8px; } }
+
+  .muestra { padding: clamp(24px, 4vw, 40px); border-radius: var(--r-xl); background: var(--marfil); border: 1px solid var(--linea); }
+  .fila-btn { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .fila-btn + .fila-btn { margin-top: 18px; }
+  .marino-bloque { padding: clamp(24px, 4vw, 40px); border-radius: var(--r-xl); background: var(--marino); color: var(--marfil); margin-top: 16px; }
+
+  .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 960px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .grid-3 { grid-template-columns: 1fr; } }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
+  @media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; } }
+  .sub { margin: 56px 0 20px; display: flex; align-items: baseline; gap: 12px; }
+  .sub .mono { color: var(--texto-suave); }
+
+  .resena { display: grid; gap: 14px; }
+  .resena__autor { display: flex; align-items: center; gap: 12px; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--lavanda); display: grid; place-items: center; font-weight: 700; font-size: 0.9rem; }
+
+  .agenda { display: grid; gap: 22px; }
+  .agenda__bloque { display: grid; gap: 10px; }
+  .agenda__bloque > span { font-size: 0.9375rem; font-weight: 600; }
+  .agenda__bloque > .agenda__nota { font-size: 0.8125rem; font-weight: 400; color: var(--texto-suave); }
+  .confirmacion { display: none; text-align: center; gap: 10px; justify-items: center; padding: 8px 0; }
+  .confirmacion.visible { display: grid; }
+  .confirmacion .nubo { width: 180px; }
+
+  .escenario { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+  .escenario__nubo { aspect-ratio: 1 / 0.9; border-radius: var(--r-xl); background: var(--marfil); border: 1px solid var(--linea); display: grid; place-items: center; padding: 24px; }
+  .escenario__nubo .nubo { max-width: 400px; }
+  .escenario__uso { margin-top: 18px; padding: 16px 18px; border-radius: var(--r-md); background: var(--marfil); border: 1px solid var(--linea); }
+  .escenario__uso strong { display: block; font-size: 1.05rem; margin-bottom: 4px; }
+  .controles { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; font-size: 0.9375rem; }
+  .controles label { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  .controles input { width: 18px; height: 18px; accent-color: var(--marino); }
+  @media (max-width: 860px) { .escenario { grid-template-columns: 1fr; } }
+
+  .fotos { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-auto-rows: 220px; gap: 16px; }
+  .fotos .foto { height: 100%; }
+  .fotos .f1 { grid-row: span 2; }
+  @media (max-width: 860px) { .fotos { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; } .fotos .f1 { grid-column: span 2; grid-row: span 1; } }
+  @media (max-width: 520px) { .fotos { grid-template-columns: 1fr; } .fotos .f1 { grid-column: auto; } }
+  .reglas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 32px; margin-top: 28px; padding: 0; list-style: none; }
+  .reglas li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9375rem; color: var(--texto-suave); }
+  .reglas li i { font-size: 1.2rem; color: var(--marino); margin-top: 2px; }
+  @media (max-width: 720px) { .reglas { grid-template-columns: 1fr; } }
+
+  .mov { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .mov .tarjeta { min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; }
+  @media (max-width: 860px) { .mov { grid-template-columns: 1fr 1fr; } }
+  .specs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+  .specs .tarjeta { display: grid; gap: 6px; }
+  @media (max-width: 720px) { .specs { grid-template-columns: 1fr; } }
+
+  .esquinas { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
+  .esquina { width: 110px; height: 110px; background: var(--lavanda); display: grid; place-items: end start; padding: 10px; }
+  .espacios { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin-top: 28px; }
+  .espacio { display: grid; gap: 6px; justify-items: center; }
+  .espacio div { background: var(--marino); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="contenedor nav__fila">
+    <a class="logo" href="#" aria-label="Dental Díaz, inicio">
+      <img src="assets/img/simbolo-marino.svg" alt="">
+      <span>Dental Díaz</span>
+    </a>
+    <ul class="nav__menu">
+      <li><a class="tiene-sub" href="#">Tratamientos <i class="ti ti-chevron-down" aria-hidden="true"></i></a></li>
+      <li><a href="#">Tu primera visita</a></li>
+      <li><a href="#">La clínica</a></li>
+      <li><a href="#">Nubo explica</a></li>
+      <li><a href="#">Contacto</a></li>
+    </ul>
+    <div class="nav__acciones">
+      <a class="icono-btn" href="#" aria-label="Escríbenos por WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+      <a class="btn btn--primario btn--chico" href="#agenda">Agenda tu valoración</a>
+      <button class="icono-btn nav__hamburguesa" aria-label="Abrir menú"><i class="ti ti-menu-2"></i></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="contenedor bv-portada">
+    <span class="ceja">Base visual · v1 · 8 nov 2026</span>
+    <h1 class="display">Las piezas del sitio de Dental Díaz</h1>
+    <p class="lead">Cada pantalla se arma con lo que está aquí. Colores, letra, botones, componentes, Nubo, fotos y movimiento. Lo que apruebes aquí se repite igual en todo el sitio.</p>
+    <nav class="bv-indice" aria-label="Secciones">
+      <a class="etiqueta etiqueta--borde" href="#hero">01 Hero</a>
+      <a class="etiqueta etiqueta--borde" href="#color">02 Color</a>
+      <a class="etiqueta etiqueta--borde" href="#tipo">03 Tipografía</a>
+      <a class="etiqueta etiqueta--borde" href="#botones">04 Botones</a>
+      <a class="etiqueta etiqueta--borde" href="#componentes">05 Componentes</a>
+      <a class="etiqueta etiqueta--borde" href="#nubo">06 Nubo</a>
+      <a class="etiqueta etiqueta--borde" href="#fotos">07 Fotografía</a>
+      <a class="etiqueta etiqueta--borde" href="#movimiento">08 Movimiento</a>
+      <a class="etiqueta etiqueta--borde" href="#espacio">09 Espacio</a>
+    </nav>
+  </section>
+
+  <hr class="bv-sep">
+
+  <section class="seccion" id="hero">
+    <div class="contenedor">
+      <div class="bv-cab">
+        <span class="mono">01 · Hero</span>
+        <div>
+          <h2 class="h2">Así se compone la primera pantalla</h2>
+          <p class="texto">Foto real de la clínica, Nubo asomándose como acento y el botón de agendar siempre visible. Mueve el cursor: Nubo te sigue con la mirada.</p>
+        </div>
+      </div>
+
+      <div class="hero-m">
+        <div class="hero-m__tx revela">
+          <span class="ceja">Clínica dental en Terán, Tuxtla</span>
+          <h1 class="display" style="position: relative; z-index: 0">Te explicamos <span class="subrayado">todo</span> antes de empezar</h1>
+          <p class="lead">Revisamos tu boca con calma, te enseñamos tus radiografías y te damos tu plan con el precio por escrito.</p>
+          <div class="hero-m__acciones">
+            <a class="btn btn--primario" href="#agenda">Agenda tu valoración <i class="ti ti-arrow-right flecha" aria-hidden="true"></i></a>
+            <a class="btn btn--secundario" href="#"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Escríbenos</a>
+          </div>
+          <p class="nota-precio">Valoración <strong>$350</strong>, se descuenta de tu tratamiento.</p>
+        </div>
+        <div class="hero-m__media revela" style="--retraso: 120ms">
+          <div class="foto">
+            <div class="foto__guia">
+              <b><i class="ti ti-camera" aria-hidden="true"></i> Foto pendiente</b>
+              La doctora explicando a un paciente con la radiografía en pantalla. Luz natural, vertical 4:5, de 2400 px de alto mínimo.
+              <span> Personas reales, nada de banco.</span>
+            </div>
+          </div>
+          <div class="hero-m__nubo"><div class="nubo nubo-asoma" data-nubo="hero" data-mirada aria-label="Nubo asomándose"></div></div>
+          <div class="hero-m__sello">
+            <span class="estrellas" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg>
+            </span>
+            <strong>4.9</strong>
+            <span class="chico" style="color: var(--texto-suave)">en Google · 5 reseñas</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="franja revela" style="margin-top: 72px" data-escalonar>
+        <div class="franja__item"><span class="franja__icono"><i class="ti ti-map-pin" aria-hidden="true"></i></span><div><strong>Desde 2021 en Terán</strong><span>A un costado del parque</span></div></div>
+        <div class="franja__item"><span class="franja__icono"><i class="ti ti-scan" aria-hidden="true"></i></span><div><strong>Radiografía digital</strong><span>En tu valoración</span></div></div>
+        <div class="franja__item"><span class="franja__icono"><i class="ti ti-credit-card" aria-hidden="true"></i></span><div><strong>Hasta 6 meses sin intereses</strong><span>Aplican restricciones</span></div></div>
+        <div class="franja__item"><span class="franja__icono"><i class="ti ti-file-text" aria-hidden="true"></i></span><div><strong>Precio por escrito</strong><span>Antes de empezar</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="bv-sep">
+
+  <section class="seccion" id="color">
+    <div class="contenedor">
+      <div class="bv-cab">
+        <span class="mono">02 · Color</span>
+        <div>
+          <h2 class="h2">Cinco colores, tomados de los SVG</h2>
+          <p class="texto">El crema es el fondo de todo el sitio. El marino carga texto y botones. La lavanda es de Nubo y de los acentos; nunca va como texto sobre fondo claro.</p>
+        </div>
+      </div>
+      <div class="colores" data-escalonar>
+        <div class="color revela"><div class="color__m" style="background: var(--marino)"><span class="contraste" style="background: var(--marfil); color: var(--marino)">10.4 : 1 marfil</span></div><div class="color__d"><strong>Marino</strong><span class="mono">#303B5B</span><span class="texto">Texto, botones, logo, pie</span></div></div>
+        <div class="color revela"><div class="color__m" style="background: var(--lavanda)"><span class="contraste" style="background: var(--marino); color: var(--marfil)">5.05 : 1 marino</span></div><div class="color__d"><strong>Lavanda</strong><span class="mono">#A3AFD1</span><span class="texto">Nubo, acentos, botón de WhatsApp</span></div></div>
+        <div class="color revela"><div class="color__m" style="background: var(--lavanda-sombra)"><span class="contraste" style="background: var(--marino); color: var(--marfil)">4.2 : 1 solo grande</span></div><div class="color__d"><strong>Lavanda sombra</strong><span class="mono">#939FC1</span><span class="texto">Pies de Nubo, hover</span></div></div>
+        <div class="color revela"><div class="color__m" style="background: var(--marfil)"><span class="contraste" style="background: var(--marino); color: var(--marfil)">10.4 : 1 marino</span></div><div class="color__d"><strong>Marfil</strong><span class="mono">#FAF8F3</span><span class="texto">Tarjetas, campos, texto sobre marino</span></div></div>
+        <div class="color revela"><div class="color__m" style="background: var(--crema); border-bottom: 1px solid var(--linea)"><span class="contraste" style="background: var(--marino); color: var(--marfil)">9.9 : 1 marino</span></div><div class="color__d"><strong>Crema</strong><span class="mono">#F4F0E9</span><span class="texto">Fondo de página</span></div></div>
+      </div>
+      <p class="texto chico" style="margin-top: 18px">Apoyo: niebla <span class="mono">#DCDBE0</span> para fotos pendientes y separadores, texto suave <span class="mono">#5E6680</span> (5 : 1 sobre crema).</p>
+    </div>
+  </section>
+
+  <hr class="bv-sep">
+
+  <section class="seccion" id="tipo">
+    <div class="contenedor">
+      <div class="bv-cab">
+        <span class="mono">03 · Tipografía</span>
+        <div>
+          <h2 class="h2">DM Sans en todo, DM Mono para datos</h2>
+          <p class="texto">Títulos en peso 700 con interletrado cerrado; texto en 400. DM Mono solo para horarios, folios y cifras.</p>
+        </div>
+      </div>
+      <div class="tipos">
+        <div class="tipo"><span class="mono">Display<br>72 / 700 / -3.5%</span><p class="display" style="margin:0">Sonríe sin miedo</p></div>
+        <div class="tipo"><span class="mono">Título 1<br>56 / 700 / -2.5%</span><p class="h1" style="margin:0">Tu primera visita, paso a paso</p></div>
+        <div class="tipo"><span class="mono">Título 2<br>40 / 700 / -2.5%</span><p class="h2" style="margin:0">Sabemos qué te preocupa</p></div>
+        <div class="tipo"><span class="mono">Título 3<br>26 / 600 / -1.5%</span><p class="h3" style="margin:0">Blanqueamiento dental</p></div>
+        <div class="tipo"><span class="mono">Entrada<br>20 / 400</span><p class="lead">Revisamos tu boca con calma y te damos tu plan con el precio por escrito.</p></div>
+        <div class="tipo"><span class="mono">Texto<br>17 / 400 / 1.6</span><p class="texto">Después del blanqueamiento, evita café, vino tinto, salsa de tomate y refrescos oscuros durante 48 a 72 horas.</p></div>
+        <div class="tipo"><span class="mono">Ceja<br>13 / 600 / +8%</span><span class="ceja">Clínica dental en Terán</span></div>
+        <div class="tipo"><span class="mono">Dato<br>DM Mono 14</span><span class="mono" style="font-size: 0.875rem">Lun 9 nov · 10:45 · Folio DD-1001</span></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="bv-sep">
+
+  <section class="seccion" id="botones">
+    <div class="contenedor">
+      <div class="bv-cab">
+        <span class="mono">04 · Botones</span>
+        <div>
+          <h2 class="h2">Un botón principal por pantalla</h2>
+          <p class="texto">Forma de píldora, como la silueta suave de Nubo. Al pasar el cursor suben 2 px y la flecha avanza; al presionar se hunden.</p>
+        </div>
+      </div>
+      <div class="muestra">
+        <div class="fila-btn">
+          <a class="btn btn--primario" href="#">Agenda tu valoración <i class="ti ti-arrow-right flecha" aria-hidden="true"></i></a>
+          <a class="btn btn--secundario" href="#">Ver tratamientos</a>
+          <a class="btn btn--whatsapp" href="#"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Escríbenos</a>
+          <a class="enlace" href="#">Conoce la clínica <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="fila-btn">
+          <a class="btn btn--primario btn--chico" href="#">Agendar</a>
+          <a class="btn btn--secundario btn--chico" href="#">Cómo llegar</a>
+          <a class="icono-btn" href="#" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+          <a class="icono-btn" href="#" aria-label="Llamar"><i class="ti ti-phone"></i></a>
+          <span class="etiqueta">Estética</span>
+          <span class="etiqueta etiqueta--borde">2 a 3 visitas</span>
+        </div>
+      </div>
+      <div class="marino-bloque">
+        <div class="fila-btn">
+          <a class="btn btn--claro" href="#">Agenda tu valoración <i class="ti ti-arrow-right flecha" aria-hidden="true"></i></a>
+          <a class="btn btn--whatsapp" href="#"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Escríbenos</a>
+          <span class="chico" style="opacity: .78">Sobre fondo marino, el principal pasa a marfil.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="bv-sep">
+
+  <section class="seccion" id="componentes">
+    <div class="contenedor">
+      <div class="bv-cab">
+        <span class="mono">05 · Componentes</span>
+        <div>
+          <h2 class="h2">Las piezas que se repiten</h2>
+          <p class="texto">Fichas de tratamiento, pasos, reseñas, preguntas frecuentes y el formulario de agenda. Todo es interactivo.</p>
+        </div>
+      </div>
+
+      <div class="sub"><span class="mono">5.1</span><h3 class="h3">Ficha de tratamiento</h3></div>
+      <div class="grid-3" data-escalonar>
+        <a class="tarjeta-tx revela" href="#">
+          <div class="foto"><div class="foto__guia"><b><i class="ti ti-camera" aria-hidden="true"></i> Foto pendiente</b>Sonrisa real de cerca, luz natural, sin retoque exagerado. 4:3.</div></div>
+          <div class="tarjeta-tx__cuerpo">
+            <span class="etiqueta">Estética</span>
+            <h4 class="h3" style="margin:0">Blanqueamiento</h4>
+            <p class="texto chico">Dientes más blancos en 2 a 3 visitas, con indicaciones claras para cuidarlos después.</p>
+            <div class="tarjeta-tx__pie"><span>Ver tratamiento</span><span class="circulo"><i class="ti ti-arrow-right" aria-hidden="true"></i></span></div>
+          </div>
+        </a>
+        <a class="tarjeta-tx revela" href="#">
+          <div class="foto"><div class="foto__guia"><b><i class="ti ti-camera" aria-hidden="true"></i> Foto pendiente</b>Paciente con brackets sonriendo, perfil 3/4. 4:3.</div></div>
+          <div class="tarjeta-tx__cuerpo">
+            <span class="etiqueta">Ortodoncia</span>
+            <h4 class="h3" style="margin:0">Brackets</h4>
+            <p class="texto chico">Metálicos, estéticos o autoligados. Controles cada mes y un plan que entiendes desde el inicio.</p>
+            <div class="tarjeta-tx__pie"><span>Ver tratamiento</span><span class="circulo"><i class="ti ti-arrow-right" aria-hidden="true"></i></span></div>
+          </div>
+        </a>
+        <a class="tarjeta-tx revela" href="#">
+          <div class="foto"><div class="foto__guia"><b><i class="ti ti-camera" aria-hidden="true"></i> Foto pendiente</b>La doctora mostrando un modelo al paciente. 4:3.</div></div>
+          <div class="tarjeta-tx__cuerpo">
+            <span class="etiqueta">Rehabilitación</span>
+            <h4 class="h3" style="margin:0">Prótesis</h4>
+            <p class="texto chico">Total o removible, lista en 2 semanas a 1 mes, con pagos divididos por cita.</p>
+            <div class="tarjeta-tx__pie"><span>Ver tratamiento</span><span class="circulo"><i class="ti ti-arrow-right" aria-hidden="true"></i></span></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="sub"><span class="mono">5.2</span><h3 class="h3">Pasos</h3></div>
+      <div class="pasos" data-escalonar>
+        <div class="paso revela"><h4 class="h3" style="margin:0 0 6px">Revisión completa</h4><p class="texto chico">Revisamos toda tu boca, sin prisa.</p></div>
+        <div class="paso revela activo"><h4 class="h3" style="margin:0 0 6px">Dos radiografías</h4><p class="texto chico">Periapicales digitales, incluidas en la valoración.</p></div>
+        <div class="paso revela"><h4 class="h3" style="margin:0 0 6px">Diagnóstico</h4><p class="texto chico">Te explicamos qué encontramos y por qué.</p></div>
+        <div class="paso revela"><h4 class="h3" style="margin:0 0 6px">Plan por escrito</h4><p class="texto chico">Con el precio. Si empiezas aquí, se descuentan los $350.</p></div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 56px">
+        <div>
+          <div class="sub" style="margin-top:0"><span class="mono">5.3</span><h3 class="h3">Reseña</h3></div>
+          <div class="tarjeta resena revela">
+            <span class="estrellas" aria-label="5 estrellas"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>
+            <p class="lead" style="color: var(--texto)">Aquí va una reseña real del perfil de Google, completa y sin editar.</p>
+            <div class="resena__autor"><span class="avatar">NP</span><div><strong style="display:block; font-size: .95rem">Nombre del paciente</strong><span class="chico" style="color: var(--texto-suave)">Reseña de Google · fecha</span></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="sub" style="margin-top:0"><span class="mono">5.4</span><h3 class="h3">Preguntas frecuentes</h3></div>
+          <div class="faq revela">
+            <div class="faq__item abierto"><button class="faq__pregunta" aria-expanded="true">¿La valoración tiene costo?<span class="faq__mas"><i class="ti ti-plus" aria-hidden="true"></i></span></button><div class="faq__respuesta"><div><p>Sí, $350. Incluye revisión completa, dos radiografías periapicales, diagnóstico y tu plan de tratamiento. Si empiezas tu tratamiento con nosotros, se descuenta del total.</p></div></div></div>
+            <div class="faq__item"><button class="faq__pregunta" aria-expanded="false">¿Puedo pagar a meses?<span class="faq__mas"><i class="ti ti-plus" aria-hidden="true"></i></span></button><div class="faq__respuesta"><div><p>En tratamientos mayores a $6,000: 3 meses sin intereses con BBVA, y hasta 6 con Santander, Inbursa, Scotiabank, Liverpool y Banorte. Aplican restricciones.</p></div></div></div>
+            <div class="faq__item"><button class="faq__pregunta" aria-expanded="false">¿Cuánto dura la ortodoncia?<span class="faq__mas"><i class="ti ti-plus" aria-hidden="true"></i></span></button><div class="faq__respuesta"><div><p>Entre 1 y 2 años, según tu caso. Las citas de control son cada mes.</p></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub" id="agenda"><span class="mono">5.5</span><h3 class="h3">Formulario de agenda</h3></div>
+      <div class="grid-2">
+        <div class="tarjeta revela" style="padding: clamp(22px, 3vw, 32px)">
+          <form class="agenda" id="form-agenda" novalidate>
+            <div class="agenda__bloque">
+              <span>¿Qué te interesa?</span>
+              <div class="chips" data-chips id="interes">
+                <button type="button" class="chip" aria-pressed="false">Blanqueamiento</button>
+                <button type="button" class="chip" aria-pressed="false">Brackets</button>
+                <button type="button" class="chip" aria-pressed="false">Prótesis</button>
+                <button type="button" class="chip" aria-pressed="false">Niños</button>
+                <button type="button" class="chip" aria-pressed="false">Otro</button>
+              </div>
+            </div>
+            <div class="agenda__bloque">
+              <span>Elige día</span>
+              <div class="chips" data-chips id="dias">
+                <button type="button" class="chip" data-valor="lun" aria-pressed="true">Lun 9</button>
+                <button type="button" class="chip" data-valor="mar" aria-pressed="false">Mar 10</button>
+                <button type="button" class="chip" data-valor="mie" aria-pressed="false">Mié 11</button>
+                <button type="button" class="chip" data-valor="jue" aria-pressed="false">Jue 12</button>
+                <button type="button" class="chip" data-valor="vie" aria-pressed="false">Vie 13</button>
+                <button type="button" class="chip" data-valor="sab" aria-pressed="false">Sáb 14</button>
+              </div>
+            </div>
+            <div class="agenda__bloque">
+              <span>Elige hora</span>
+              <div class="chips" data-chips id="horas"></div>
+              <span class="agenda__nota">La valoración dura 45 minutos. Horario de ejemplo; en el sitio real sale del calendario de la clínica.</span>
+            </div>
+            <div class="campo" id="c-nombre">
+              <label for="nombre">Tu nombre</label>
+              <input id="nombre" type="text" placeholder="Ana López" autocomplete="name">
+              <span class="campo__ayuda">Como quieres que te llamemos.</span>
+            </div>
+            <div class="campo" id="c-wa">
+              <label for="wa">WhatsApp</label>
+              <input id="wa" type="tel" inputmode="numeric" placeholder="961 123 4567" autocomplete="tel">
+              <span class="campo__ayuda">Ahí te confirmamos tu cita.</span>
+            </div>
+            <button class="btn btn--primario" type="submit">Confirmar valoración <i class="ti ti-arrow-right flecha" aria-hidden="true"></i></button>
+            <p class="nota-precio" style="margin:0">Valoración <strong>$350</strong>, se descuenta de tu tratamiento.</p>
+          </form>
+          <div class="confirmacion" id="confirmacion" aria-live="polite">
+            <div class="nubo" data-nubo="celebra" data-entrar aria-label="Nubo celebrando"></div>
+            <h4 class="h3" style="margin:0">Tu valoración quedó apartada</h4>
+            <p class="texto" id="resumen-cita"></p>
+            <a class="btn btn--whatsapp" href="#"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Confirmar por WhatsApp</a>
+            <button class="enlace" type="button" id="otra" style="background-color: transparent; border: 0; cursor: pointer; margin-top: 6px">Volver al formulario</button>
+          </div>
+        </div>
+        <div class="revela" style="display:grid; gap: 14px; align-content: start">
+          <div class="escenario__nubo" style="aspect-ratio: auto; padding: 32px">
+            <div class="nubo" data-nubo="escucha" data-mirada style="max-width: 260px" aria-label="Nubo escuchando"></div>
+          </div>
+          <p class="texto chico">Mientras llenas el formulario, Nubo escucha. Al confirmar, celebra. Prueba dejar el WhatsApp vacío para ver el error.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="bv-sep">
+
+  <section class="seccion" id="nubo">
+    <div class="contenedor">
+      <div class="bv-cab">
+        <span class="mono">06 · Nubo</span>
+        <div>
+          <h2 class="h2">Diez estados, cada uno con su lugar</h2>
+          <p class="texto">Todos parpadean y respiran. En los que tienen ojos abiertos, la mirada sigue el cursor. Las animaciones más complejas (caminar, hablar, escenas) quedan para Fede.</p>
+        </div>
+      </div>
+      <div class="escenario">
+        <div class="escenario__nubo"><div class="nubo" id="nubo-escenario" data-nubo="saluda" data-mirada data-saluda aria-label="Nubo"></div></div>
+        <div>
+          <div class="chips" data-chips id="estados">
+            <button type="button" class="chip" data-valor="saluda" aria-pressed="true">Saluda</button>
+            <button type="button" class="chip" data-valor="explica" aria-pressed="false">Explica</button>
+            <button type="button" class="chip" data-valor="celebra" aria-pressed="false">Celebra</button>
+            <button type="button" class="chip" data-valor="escucha" aria-pressed="false">Escucha</button>
+            <button type="button" class="chip" data-valor="piensa" aria-pressed="false">Piensa</button>
+            <button type="button" class="chip" data-valor="tranquilo" aria-pressed="false">Tranquilo</button>
+            <button type="button" class="chip" data-valor="sorprendido" aria-pressed="false">Sorprendido</button>
+            <button type="button" class="chip" data-valor="empatico" aria-pressed="false">Empático</button>
+            <button type="button" class="chip" data-valor="guina" aria-pressed="false">Guiña</button>
+            <button type="button" class="chip" data-valor="invita" aria-pressed="false">Invita</button>
+          </div>
+          <div class="escenario__uso"><strong id="uso-titulo">Saluda</strong><span class="texto chico" id="uso-texto">Bienvenida en Odontopediatría y al entrar al panel de la clínica.</span></div>
+          <div class="controles">
+            <label><input type="checkbox" id="ctl-mirada" checked> Sigue el cursor</label>
+            <label><input type="checkbox" id="ctl-saludo" checked> Mueve el brazo (saluda y guiña)</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="bv-sep">
+
+  <section class="seccion" id="fotos">
+    <div class="contenedor">
+      <div class="bv-cab">
+        <span class="mono">07 · Fotografía</span>
+        <div>
+          <h2 class="h2">Las fotos que hay que tomar</h2>
+          <p class="texto">Nada de fotos de banco. Cada espacio pendiente del sitio dice qué foto va ahí. Esta es la lista para la primera grabación.</p>
+        </div>
+      </div>
+      <div class="fotos" data-escalonar>
+        <div class="foto f1 revela"><div class="foto__guia"><b><i class="ti ti-camera" aria-hidden="true"></i> 1 · Hero de Inicio</b>La doctora explicando al paciente con la radiografía en pantalla. Vertical 4:5. Es la foto más importante del sitio.</div></div>
+        <div class="foto revela"><div class="foto__guia"><b><i class="ti ti-camera" aria-hidden="true"></i> 2 · Retrato de la doctora</b>De frente, sonriendo, con bata. Fondo de la clínica desenfocado.</div></div>
+        <div class="foto revela"><div class="foto__guia"><b><i class="ti ti-camera" aria-hidden="true"></i> 3 · Recepción</b>Horizontal, luz natural, sin gente. Con el logo nuevo visible si ya está.</div></div>
+        <div class="foto revela"><div class="foto__guia"><b><i class="ti ti-camera" aria-hidden="true"></i> 4 · Consultorio</b>Los dos sillones, ordenados, con luz encendida.</div></div>
+        <div class="foto revela"><div class="foto__guia"><b><i class="ti ti-camera" aria-hidden="true"></i> 5 · Detalles</b>Manos de la doctora, radiografía en el monitor, sillón con luz encendida. Cuadradas.</div></div>
+      </div>
+      <ul class="reglas">
+        <li><i class="ti ti-sun" aria-hidden="true"></i> Luz natural de día. Sin flash directo.</li>
+        <li><i class="ti ti-users" aria-hidden="true"></i> Personas reales de la clínica, con permiso firmado si sale un paciente.</li>
+        <li><i class="ti ti-palette" aria-hidden="true"></i> Tonos cálidos; nada de luz azul de hospital.</li>
+        <li><i class="ti ti-crop" aria-hidden="true"></i> Cada foto en vertical y horizontal cuando se pueda.</li>
+        <li><i class="ti ti-tools-off" aria-hidden="true"></i> Sin instrumentos en primer plano: generan miedo.</li>
+        <li><i class="ti ti-photo-off" aria-hidden="true"></i> Sin antes y después hasta tener casos y el visto bueno de COFEPRIS.</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="bv-sep">
+
+  <section class="seccion" id="movimiento">
+    <div class="contenedor">
+      <div class="bv-cab">
+        <span class="mono">08 · Movimiento</span>
+        <div>
+          <h2 class="h2">Suave, nunca brusco</h2>
+          <p class="texto">Las secciones aparecen subiendo al hacer scroll, una pieza tras otra. Nada rebota salvo Nubo y los chips seleccionados. Quien tenga activado "reducir movimiento" ve todo quieto.</p>
+        </div>
+      </div>
+      <div class="mov" id="mov-demo" data-escalonar>
+        <div class="tarjeta revela"><span class="mono">01</span><strong>Aparece</strong></div>
+        <div class="tarjeta revela"><span class="mono">02</span><strong>Luego esta</strong></div>
+        <div class="tarjeta revela"><span class="mono">03</span><strong>Luego esta</strong></div>
+        <div class="tarjeta revela"><span class="mono">04</span><strong>Y esta</strong></div>
+      </div>
+      <button class="btn btn--secundario btn--chico" id="repetir" style="margin-top: 18px"><i class="ti ti-refresh" aria-hidden="true"></i> Repetir</button>
+      <div class="specs">
+        <div class="tarjeta"><span class="mono">Aparecer</span><strong>640 ms · sube 24 px</strong><span class="texto chico">Escalonado de 70 ms entre piezas.</span></div>
+        <div class="tarjeta"><span class="mono">Interacción</span><strong>160 a 320 ms</strong><span class="texto chico">Botones, campos, preguntas.</span></div>
+        <div class="tarjeta"><span class="mono">Curva</span><strong>cubic-bezier(.22, 1, .36, 1)</strong><span class="texto chico">Arranca rápido y frena suave.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="bv-sep">
+
+  <section class="seccion" id="espacio">
+    <div class="contenedor">
+      <div class="bv-cab">
+        <span class="mono">09 · Espacio y esquinas</span>
+        <div>
+          <h2 class="h2">Esquinas redondas, mucho aire</h2>
+          <p class="texto">Nada tiene esquinas rectas: todo retoma la forma de nube. Separaciones en múltiplos de 8.</p>
+        </div>
+      </div>
+      <div class="esquinas">
+        <div class="esquina" style="border-radius: 10px"><span class="mono">10</span></div>
+        <div class="esquina" style="border-radius: 16px"><span class="mono">16</span></div>
+        <div class="esquina" style="border-radius: 24px"><span class="mono">24</span></div>
+        <div class="esquina" style="border-radius: 32px"><span class="mono">32</span></div>
+        <div class="esquina" style="border-radius: 999px; width: 180px"><span class="mono" style="padding-left: 14px">píldora</span></div>
+      </div>
+      <div class="espacios">
+        <div class="espacio"><div style="width:8px;height:8px"></div><span class="mono">8</span></div>
+        <div class="espacio"><div style="width:16px;height:16px"></div><span class="mono">16</span></div>
+        <div class="espacio"><div style="width:24px;height:24px"></div><span class="mono">24</span></div>
+        <div class="espacio"><div style="width:32px;height:32px"></div><span class="mono">32</span></div>
+        <div class="espacio"><div style="width:48px;height:48px"></div><span class="mono">48</span></div>
+        <div class="espacio"><div style="width:64px;height:64px"></div><span class="mono">64</span></div>
+        <div class="espacio"><div style="width:96px;height:96px"></div><span class="mono">96</span></div>
+        <div class="espacio"><div style="width:128px;height:128px"></div><span class="mono">128</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div class="pie__grid">
+      <div>
+        <a class="logo" href="#" style="color: var(--marfil); opacity: 1">
+          <img src="assets/img/simbolo-marino.svg" alt="" style="filter: brightness(0) invert(0.97) sepia(0.06)">
+          <span>Dental Díaz</span>
+        </a>
+        <p style="margin: 18px 0 0; font-size: .9375rem; opacity: .78; max-width: 32ch">Clínica dental familiar en Terán. Te explicamos todo antes de empezar.</p>
+      </div>
+      <div>
+        <h4>Tratamientos</h4>
+        <ul><li><a href="#">Blanqueamiento</a></li><li><a href="#">Ortodoncia</a></li><li><a href="#">Prótesis</a></li><li><a href="#">Odontopediatría</a></li><li><a href="#">Odontología general</a></li></ul>
+      </div>
+      <div>
+        <h4>Visítanos</h4>
+        <ul><li>2da Norte Oriente #438, Terán</li><li>A un costado del parque de Terán</li><li><a href="#">Cómo llegar</a></li></ul>
+      </div>
+      <div>
+        <h4>Horario</h4>
+        <ul><li>Lun a vie · 10:00 a 14:00</li><li>y 16:00 a 20:00</li><li>Sábado · 10:00 a 14:00</li><li><a href="#">WhatsApp 961 138 5698</a></li></ul>
+      </div>
+    </div>
+    <div class="pie__legal">
+      <span>Dra. María Concepción Díaz Márquez · Cédula profesional 15529125 · UNISUR</span>
+      <span class="pie__cofepris">Aviso de publicidad COFEPRIS: pendiente</span>
+      <span><a href="#">Aviso de privacidad</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="barra-movil">
+  <a class="btn btn--primario" href="#agenda">Agenda tu valoración</a>
+  <a class="btn btn--whatsapp" href="#" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+</div>
+
+<script src="assets/js/nubo-states.js"></script>
+<script src="assets/js/nubo.js"></script>
+<script src="assets/js/ui.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var usos = {
+    saluda: ['Saluda', 'Bienvenida en Odontopediatría y al entrar al panel de la clínica.'],
+    explica: ['Explica', 'Tu primera visita y los pasos de cada tratamiento.'],
+    celebra: ['Celebra', 'Cita confirmada y fin de tratamiento.'],
+    escucha: ['Escucha', 'Junto al formulario de agenda, mientras el paciente escribe.'],
+    piensa: ['Piensa', 'Preguntas frecuentes.'],
+    tranquilo: ['Tranquilo', 'Cuidados después del tratamiento y la sección de dolor.'],
+    sorprendido: ['Sorprendido', 'Mitos en Nubo explica.'],
+    empatico: ['Empático', '"Sabemos qué te preocupa": dolor, precio, malas experiencias.'],
+    guina: ['Guiña', 'Odontopediatría y detalles amables.'],
+    invita: ['Invita', 'Cierre de cada página, junto al botón de agendar.']
+  };
+  var esc = document.getElementById('nubo-escenario');
+  var mirada = document.getElementById('ctl-mirada');
+  var saludo = document.getElementById('ctl-saludo');
+  function aplicarControles() {
+    if (mirada.checked) esc.setAttribute('data-mirada', ''); else esc.removeAttribute('data-mirada');
+    if (saludo.checked) esc.setAttribute('data-saluda', ''); else esc.removeAttribute('data-saluda');
+  }
+  document.getElementById('estados').addEventListener('cambio', function (e) {
+    aplicarControles();
+    Nubo.set(esc, e.detail);
+    document.getElementById('uso-titulo').textContent = usos[e.detail][0];
+    document.getElementById('uso-texto').textContent = usos[e.detail][1];
+  });
+  [mirada, saludo].forEach(function (c) {
+    c.addEventListener('change', function () {
+      aplicarControles();
+      Nubo.set(esc, esc.getAttribute('data-nubo'));
+      if (!mirada.checked && esc._svg) { esc._svg.style.setProperty('--px', '0px'); esc._svg.style.setProperty('--py', '0px'); }
+    });
+  });
+
+  var horas = document.getElementById('horas');
+  var manana = ['10:00', '10:45', '11:30', '12:15', '13:00'];
+  var tarde = ['16:00', '16:45', '17:30', '18:15', '19:00'];
+  var ocupadas = { lun: ['11:30', '17:30'], mar: ['10:45'], mie: ['12:15', '16:00', '18:15'], jue: [], vie: ['10:00', '19:00'], sab: ['11:30'] };
+  function pintarHoras(dia) {
+    var lista = dia === 'sab' ? manana : manana.concat(tarde);
+    horas.innerHTML = lista.map(function (h) {
+      var ocupada = (ocupadas[dia] || []).indexOf(h) > -1;
+      return '<button type="button" class="chip chip--hora" aria-pressed="false"' + (ocupada ? ' disabled aria-label="' + h + ' ocupada"' : '') + '>' + h + '</button>';
+    }).join('');
+  }
+  pintarHoras('lun');
+  document.getElementById('dias').addEventListener('cambio', function (e) { pintarHoras(e.detail); });
+
+  var form = document.getElementById('form-agenda');
+  var conf = document.getElementById('confirmacion');
+  function marcar(id, msg) {
+    var c = document.getElementById(id);
+    c.classList.toggle('con-error', !!msg);
+    c.querySelector('.campo__ayuda').textContent = msg || c.querySelector('.campo__ayuda').getAttribute('data-orig');
+  }
+  form.querySelectorAll('.campo__ayuda').forEach(function (a) { a.setAttribute('data-orig', a.textContent); });
+  ['nombre', 'wa'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', function () { marcar(id === 'wa' ? 'c-wa' : 'c-nombre', ''); });
+  });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nombre = document.getElementById('nombre').value.trim();
+    var wa = document.getElementById('wa').value.replace(/\D/g, '');
+    var ok = true;
+    if (!nombre) { marcar('c-nombre', 'Escribe tu nombre.'); ok = false; }
+    if (wa.length !== 10) { marcar('c-wa', 'Escribe tu WhatsApp a 10 dígitos.'); ok = false; }
+    var hora = horas.querySelector('[aria-pressed="true"]');
+    var dia = document.querySelector('#dias [aria-pressed="true"]');
+    if (!hora) { ok = false; horas.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(6px)' }, { transform: 'translateX(0)' }], { duration: 280 }); }
+    if (!ok) return;
+    document.getElementById('resumen-cita').textContent = nombre.split(' ')[0] + ', te esperamos el ' + dia.textContent + ' de noviembre a las ' + hora.textContent + '.';
+    form.style.display = 'none';
+    conf.classList.add('visible');
+    Nubo.set(conf.querySelector('.nubo'), 'celebra');
+  });
+  document.getElementById('otra').addEventListener('click', function () { conf.classList.remove('visible'); form.style.display = ''; });
+
+  document.getElementById('repetir').addEventListener('click', function () {
+    var items = document.querySelectorAll('#mov-demo .revela');
+    items.forEach(function (el) { el.classList.remove('visible'); });
+    setTimeout(function () { items.forEach(function (el) { el.classList.add('visible'); }); }, 120);
+  });
+});
+</script>
+</body>
+</html>

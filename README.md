@@ -19,3 +19,9 @@ Demo estática (HTML, CSS y JS sin build) del sitio institucional de Dental Día
 - Colores tomados de los SVG del banco de identidad (no del PDF).
 - DM Sans para todo; DM Mono solo para datos.
 - Textos del sitio de tú. Sin precios de tratamientos; solo la valoración y los paquetes.
+
+## Panel (demo)
+
+- `panel-a.html`: panel clásico con barra lateral (Resumen, Agenda semanal, Pacientes, Ligas, Comisión, Pendientes, Contenido).
+- `panel-b.html`: panel "Hoy primero", pensado para celular (citas del día con acciones rápidas, kanban de pacientes, barra inferior).
+- Datos de ejemplo en `assets/js/panel.js`. Generador: `fuente/panel.py`.

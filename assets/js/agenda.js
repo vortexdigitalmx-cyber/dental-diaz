@@ -153,6 +153,8 @@
   }
 
 
+  window.DDAgenda = { proximosDias: proximosDias, ocupadas: ocupadas, MANANA: MANANA, TARDE: TARDE, DIAS: DIAS, MESES: MESES, aMin: aMin, WA: WA };
+
   function frenoAgenda() {
     var sec = document.querySelector('.agenda-sec');
     if (!sec || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Panel · Dental Díaz</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/agenda.css">
+<link rel="stylesheet" href="assets/css/panel.css">
+</head>
+<body class="panel pb" data-panel="b">
+<header class="pb__top">
+  <div class="pb__top-in">
+    <a class="logo" href="index.html"><img src="assets/img/simbolo-marino.svg" alt=""><span>Dental Díaz</span></a>
+    <nav class="pb__tabs" aria-label="Secciones"><a class="pb__tab" href="#hoy" data-ir="hoy"><svg class="i" aria-hidden="true"><use href="#i-sun"/></svg>Hoy</a><a class="pb__tab" href="#agenda" data-ir="agenda"><svg class="i" aria-hidden="true"><use href="#i-calendar-week"/></svg>Agenda</a><a class="pb__tab" href="#pacientes" data-ir="pacientes"><svg class="i" aria-hidden="true"><use href="#i-layout-kanban"/></svg>Pacientes</a><a class="pb__tab" href="#ligas" data-ir="ligas"><svg class="i" aria-hidden="true"><use href="#i-link"/></svg>Ligas</a><a class="pb__tab" href="#comision" data-ir="comision"><svg class="i" aria-hidden="true"><use href="#i-receipt-2"/></svg>Comisión</a><a class="pb__tab" href="#pendientes" data-ir="pendientes"><svg class="i" aria-hidden="true"><use href="#i-checklist"/></svg>Pendientes</a><a class="pb__tab" href="#contenido" data-ir="contenido"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>Contenido</a></nav>
+    <div class="pb__top-der"><span class="demo-chip">Propuesta B<span class="solo-escritorio"> · datos de ejemplo</span></span><span class="avatar">MD</span></div>
+  </div>
+</header>
+<main class="pb__main">
+  <h1 class="pb__titulo" data-vista-titulo>Hoy</h1>
+  <div data-vista-cuerpo></div>
+</main>
+<div class="mas-hoja" role="menu"><a href="#ligas" data-ir="ligas"><svg class="i" aria-hidden="true"><use href="#i-link"/></svg>Ligas</a><a href="#comision" data-ir="comision"><svg class="i" aria-hidden="true"><use href="#i-receipt-2"/></svg>Comisión</a><a href="#pendientes" data-ir="pendientes"><svg class="i" aria-hidden="true"><use href="#i-checklist"/></svg>Pendientes</a><a href="#contenido" data-ir="contenido"><svg class="i" aria-hidden="true"><use href="#i-pencil"/></svg>Contenido</a></div>
+<nav class="tabbar" aria-label="Secciones"><a href="#hoy" data-ir="hoy"><svg class="i" aria-hidden="true"><use href="#i-sun"/></svg><span>Hoy</span></a><a href="#agenda" data-ir="agenda"><svg class="i" aria-hidden="true"><use href="#i-calendar-week"/></svg><span>Agenda</span></a><a href="#pacientes" data-ir="pacientes"><svg class="i" aria-hidden="true"><use href="#i-layout-kanban"/></svg><span>Pacientes</span></a><button type="button" data-mas><svg class="i" aria-hidden="true"><use href="#i-dots"/></svg><span>Más</span></button></nav>
+<div class="velo" id="velo"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Ficha del paciente">
+  <div class="drawer__top"><span class="mini">Ficha del paciente</span><button class="icono-btn" data-cerrar-drawer aria-label="Cerrar"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+  <div class="drawer__cuerpo" data-drawer-cuerpo></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/js/iconos.js"></script>
+<script src="assets/js/nubo-states.js"></script>
+<script src="assets/js/nubo.js"></script>
+<script src="assets/js/panel.js"></script>
+</body>
+</html>

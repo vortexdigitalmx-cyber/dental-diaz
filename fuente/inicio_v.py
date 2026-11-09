@@ -257,7 +257,7 @@ CSS_F = CSS_V2 + CSS_V1[len(CSS_V):] + '''
 .hero-a .h1-hero { font-size: clamp(2.5rem, 1.4rem + 3vw, 4.3rem); }
 .hero-a__media .foto { aspect-ratio: auto; height: clamp(340px, calc(100svh - 300px), 640px); }
 .hero-a__nubo { width: 34%; }
-@media (max-width: 900px) { .hero-a { min-height: 0; } .hero-a__media .foto { height: auto; aspect-ratio: 4 / 4.4; } }
+@media (max-width: 900px) { .hero-a { min-height: 0; } .hero-a__media { order: -1; max-width: 420px; } .hero-a__media .foto { height: auto; aspect-ratio: 4 / 3.6; } .hero-a__grid { gap: 28px; } }
 
 #preocupaciones.banda { padding-block: clamp(56px, 6vw, 88px); }
 .miedos-v2 { grid-template-columns: 1fr minmax(240px, 300px) 1fr; align-items: center; }
@@ -296,6 +296,12 @@ SELECTOR = '''<div class="selector-hero" role="group" aria-label="Elegir hero (s
 })();
 </script>'''
 
+import re as _re
+def _limpiar_chips(t):
+    t = _re.sub(r'<div class="chip-flota dos">.*?</div></div>', '', t, flags=_re.S)
+    return t.replace('<div><strong>4.9 en Google</strong><span>5 reseñas</span></div>', '<div><strong>4.9 en Google</strong></div>')
+hero_n_sola = _limpiar_chips(hero_n_sola)
+hero_a = _limpiar_chips(hero_a)
 final = "\n".join([hero_n_sola, hero_a, confianza, trat_v2(), historia, agenda_html(pasos=True), miedos_v2(), doctora, galeria_v2(), resenas_v2(), mito, visitanos, cierre])
 html_f = cabeza("Dental Díaz · Clínica dental familiar en Terán, Tuxtla", CSS_F) + nav("final") + "<main>\n" + final + "\n</main>\n" + historia_script + GALERIA_JS + SELECTOR + pie()
 html_f = html_f.replace('<div class="propuesta-tag">Propuesta final</div>\n', '')

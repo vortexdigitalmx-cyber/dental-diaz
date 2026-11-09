@@ -47,9 +47,9 @@
 
     function fechaTxt() { return d.dia ? A.DIAS[d.dia.wd].toLowerCase() + ' ' + d.dia.fecha.getUTCDate() + ' de ' + A.MESES[d.dia.fecha.getUTCMonth()] : ''; }
     function pintarTicket() {
-      var filas = [['Valoración', d.interes], ['Para', d.para], ['Día', fechaTxt()], ['Hora', d.hora], ['Nombre', d.nombre]];
+      var filas = [['sparkles', 'Valoración', d.interes], ['users', 'Para', d.para], ['calendar', 'Día', fechaTxt()], ['clock', 'Hora', d.hora], ['mood-smile', 'A nombre de', d.nombre]];
       ticket.innerHTML = filas.map(function (f) {
-        return '<li class="' + (f[1] ? 'lleno' : '') + '"><span>' + f[0] + '</span><strong>' + (f[1] || '...') + '</strong></li>';
+        return '<li class="' + (f[2] ? 'lleno' : '') + '"><span class="tu-cita__ic"><svg class="i" aria-hidden="true"><use href="#i-' + (f[2] ? 'check' : f[0]) + '"/></svg></span><span>' + f[1] + '</span><strong>' + (f[2] || 'Por elegir') + '</strong></li>';
       }).join('');
     }
     function nuboEstado(e) { if (window.Nubo && nubo.getAttribute('data-nubo') !== e) Nubo.set(nubo, e); }
@@ -92,7 +92,7 @@
       }
       if (e.target.closest('[data-chat-siguiente]')) {
         var n = area.querySelector('#ch-nombre'), w = area.querySelector('#ch-wa');
-        var okN = n.value.trim().length > 1, okW = w.value.replace(/\D/g, '').length === 10;
+        var okN = n.value.trim().length > 1, okW = A.waOk(w.value);
         n.closest('.campo').classList.toggle('con-error', !okN);
         w.closest('.campo').classList.toggle('con-error', !okW);
         n.closest('.campo').querySelector('.campo__ayuda').textContent = okN ? 'Como quieres que te llamemos.' : 'Escribe tu nombre.';
@@ -127,7 +127,10 @@
       nuboEstado('celebra');
       area.innerHTML = '<div class="chat-final"><a class="btn btn--whatsapp" target="_blank" rel="noopener" href="https://wa.me/' + A.WA + '?text=' + encodeURIComponent(msg) + '"><svg class="i" aria-hidden="true"><use href="#i-brand-whatsapp"/></svg> Confirmar por WhatsApp</a>' +
         '<a class="btn btn--secundario" download="valoracion-dental-diaz.ics" href="' + ics() + '"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg> Agregar a mi calendario</a></div>';
-      ticket.insertAdjacentHTML('beforeend', '<li class="lleno"><span>Folio</span><strong class="tabular">DD-1001</strong></li>');
+      ticket.insertAdjacentHTML('beforeend', '<li class="lleno"><span class="tu-cita__ic"><svg class="i" aria-hidden="true"><use href="#i-file-text"/></svg></span><span>Folio</span><strong class="tabular">DD-1001</strong></li>');
+      var est = root.querySelector('[data-cita-estado]'); if (est) est.textContent = 'Apartada';
+      if (window.innerWidth < 1000) A.irA(root); 
+      setTimeout(function () { A.confeti(root.querySelector('.chat__escena')); }, 300);
     }
 
     mostrar(0);

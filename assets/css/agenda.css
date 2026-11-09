@@ -60,3 +60,6 @@
   .agenda-lado p, .agenda-incluye { display: none; }
   .agenda-campos { grid-template-columns: 1fr; }
 }
+.confeti { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+.confeti i { position: absolute; width: 9px; height: 13px; border-radius: 2px; animation: confeti 1.5s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+@keyframes confeti { 0% { transform: translate(0, 0) rotate(0); opacity: 1; } 60% { opacity: 1; } 100% { transform: translate(var(--x), calc(var(--y) + 420px)) rotate(var(--r)); opacity: 0; } }

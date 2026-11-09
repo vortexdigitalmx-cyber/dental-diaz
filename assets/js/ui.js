@@ -27,7 +27,9 @@
     document.querySelectorAll('.faq__pregunta').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var item = btn.closest('.faq__item');
-        var open = item.classList.toggle('abierto');
+        var open = !item.classList.contains('abierto');
+        item.parentNode.querySelectorAll('.faq__item.abierto').forEach(function (o) { if (o !== item) { o.classList.remove('abierto'); o.querySelector('.faq__pregunta').setAttribute('aria-expanded', 'false'); } });
+        item.classList.toggle('abierto', open);
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     });

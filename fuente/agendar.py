@@ -5,15 +5,15 @@ CSS_AG = CSS_COMUN + '''
 .migas a { text-decoration: none; }
 .migas a:hover { color: var(--marino); }
 .ag-hero { padding-block: clamp(32px, 5vw, 64px) clamp(28px, 4vw, 48px); }
-.ag-hero__grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 32px; align-items: end; }
+.ag-hero__grid { display: grid; gap: 0; }
 .ag-hero h1 { margin: 16px 0 0; font-size: clamp(2.4rem, 1.6rem + 3vw, 4rem); letter-spacing: -0.04em; line-height: 1.02; font-weight: 700; }
 .ag-hero .lead { margin-top: 18px; max-width: 46ch; }
-.ag-datos { display: grid; gap: 10px; }
-.ag-dato { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: var(--r-md); background: var(--marfil); border: 1px solid var(--linea); }
+.ag-datos { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.ag-dato { display: flex; align-items: center; gap: 12px; padding: 12px 18px 12px 14px; border-radius: var(--r-md); background: var(--marfil); border: 1px solid var(--linea); }
 .ag-dato .i { width: 22px; height: 22px; color: var(--lavanda-sombra); }
 .ag-dato strong { display: block; font-size: 0.9875rem; }
 .ag-dato small { color: var(--texto-suave); font-size: 0.8125rem; }
-@media (max-width: 900px) { .ag-hero__grid { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { .ag-datos { display: grid; } }
 
 .antes { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 16px; }
 .antes > div { padding: clamp(22px, 3vw, 32px); border-radius: var(--r-lg); background: var(--marfil); border: 1px solid var(--linea); display: grid; gap: 14px; align-content: start; }
@@ -39,7 +39,7 @@ CSS_AG = CSS_COMUN + '''
 .chat { min-height: calc(100svh - 76px); display: grid; grid-template-columns: 1fr 340px; gap: clamp(20px, 3vw, 40px); padding-block: clamp(20px, 3vw, 40px); align-items: stretch; }
 .chat__escena { position: relative; display: grid; grid-template-rows: auto 1fr; border-radius: var(--r-xl); background: var(--marfil); border: 1px solid var(--linea); overflow: hidden; }
 .chat__top { display: flex; align-items: center; gap: 14px; padding: 18px 22px; border-bottom: 1px solid var(--linea); }
-.chat__top .migas { margin-right: auto; }
+.chat__top .mini-titulo { margin-right: auto; font-weight: 600; font-size: 0.9375rem; }
 .chat__riel { position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--niebla); }
 .chat__barra { display: block; height: 100%; background: var(--marino); transform-origin: left; transform: scaleX(0.14); transition: transform 600ms var(--ease-out); }
 .chat__contador { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--texto-suave); }
@@ -65,17 +65,77 @@ CSS_AG = CSS_COMUN + '''
 .chat__atras[hidden] { display: none; }
 .chat__atras .i { transform: scaleX(-1); }
 .chat__lado { display: grid; gap: 14px; align-content: start; }
-.ticket { position: relative; padding: 24px; border-radius: var(--r-lg); background: var(--marino); color: var(--marfil); }
-.ticket::before, .ticket::after { content: ""; position: absolute; top: 92px; width: 22px; height: 22px; border-radius: 50%; background: var(--crema); }
-.ticket::before { left: -11px; } .ticket::after { right: -11px; }
-.ticket h2 { margin: 0 0 6px; font-size: 1.15rem; letter-spacing: -0.015em; }
-.ticket > p { margin: 0 0 22px; font-size: 0.875rem; color: rgba(250, 248, 243, 0.7); }
-.ticket ul { list-style: none; margin: 0; padding: 18px 0 0; border-top: 2px dashed rgba(250, 248, 243, 0.25); display: grid; gap: 12px; }
-.ticket li { display: flex; justify-content: space-between; gap: 12px; font-size: 0.9375rem; }
-.ticket li span { color: rgba(250, 248, 243, 0.6); }
-.ticket li strong { color: rgba(250, 248, 243, 0.35); font-weight: 600; text-align: right; }
-.ticket li.lleno strong { color: var(--marfil); animation: texto-entra 400ms var(--ease-out) both; }
-.chat.confirmado .ticket { box-shadow: 0 0 0 4px var(--lavanda); }
+.tu-cita { padding: 22px; border-radius: var(--r-lg); background: var(--marfil); border: 1px solid var(--linea); display: grid; gap: 16px; transition: box-shadow var(--dur-base), border-color var(--dur-base); }
+.tu-cita__cab { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.tu-cita h2 { margin: 0; font-size: 1.2rem; letter-spacing: -0.02em; }
+.tu-cita__cab p { margin: 2px 0 0; font-size: 0.875rem; color: var(--texto-suave); }
+.tu-cita__estado { font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--crema); color: var(--texto-suave); white-space: nowrap; }
+.tu-cita ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.tu-cita li { display: grid; grid-template-columns: 32px auto 1fr; gap: 10px; align-items: center; padding: 8px 0; font-size: 0.9375rem; border-bottom: 1px solid var(--linea); }
+.tu-cita li:last-child { border-bottom: 0; }
+.tu-cita li > span:nth-child(2) { color: var(--texto-suave); }
+.tu-cita li strong { text-align: right; font-weight: 600; color: #A0A5B5; font-weight: 500; }
+.tu-cita li.lleno strong { color: var(--marino); font-weight: 600; animation: texto-entra 400ms var(--ease-out) both; }
+.tu-cita__ic { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: var(--crema); color: var(--lavanda-sombra); }
+.tu-cita__ic .i { width: 17px; height: 17px; }
+.tu-cita li.lleno .tu-cita__ic { background: var(--marino); color: var(--marfil); animation: pop 420ms var(--ease-rebote) both; }
+@keyframes pop { from { transform: scale(0.6); } to { transform: none; } }
+.chat.confirmado .tu-cita { border-color: var(--marino); box-shadow: 0 0 0 3px var(--lavanda); }
+.chat.confirmado .tu-cita__estado { background: var(--marino); color: var(--marfil); }
+
+.conv { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: clamp(20px, 3vw, 40px); align-items: start; }
+.conv__ventana { display: grid; grid-template-rows: auto 1fr auto; height: min(700px, calc(100svh - 120px)); border-radius: var(--r-xl); background: var(--marfil); border: 1px solid var(--linea); overflow: hidden; box-shadow: var(--sombra-suave); }
+.conv__cab { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--linea); background: var(--marfil); }
+.conv__avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--crema); border: 1px solid var(--linea); display: grid; place-items: end center; overflow: hidden; flex: none; }
+.conv__avatar .nubo { width: 42px; margin-bottom: -10px; }
+.conv__cab strong { display: block; font-size: 1rem; }
+.conv__cab small { font-size: 0.8125rem; color: var(--ok); }
+.conv__cab [data-conv-contador] { margin-left: auto; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--texto-suave); }
+.conv__hilo { overflow-y: auto; padding: 22px clamp(14px, 3vw, 28px); display: flex; flex-direction: column; gap: 8px; background: radial-gradient(circle at 1px 1px, rgba(48, 59, 91, 0.06) 1px, transparent 0) 0 0 / 18px 18px, var(--crema); scroll-behavior: smooth; }
+.msg { flex-shrink: 0; max-width: min(78%, 460px); padding: 11px 15px; border-radius: 18px; font-size: 1rem; line-height: 1.45; animation: msg-entra 360ms var(--ease-rebote) both; }
+.msg--nubo { align-self: flex-start; background: var(--marfil); color: var(--texto); border-bottom-left-radius: 6px; box-shadow: 0 1px 2px rgba(48, 59, 91, 0.08); }
+.msg--yo { align-self: flex-end; background: var(--marino); color: var(--marfil); border-bottom-right-radius: 6px; display: grid; justify-items: end; gap: 2px; transform-origin: right bottom; }
+.msg__cambiar { border: 0; background: none; padding: 0; font: inherit; font-size: 0.75rem; color: var(--lavanda); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.msg--escribe { display: flex; gap: 5px; padding: 15px 16px; }
+.msg--escribe i { width: 7px; height: 7px; border-radius: 50%; background: var(--lavanda-sombra); animation: punto 1s infinite ease-in-out; }
+.msg--escribe i:nth-child(2) { animation-delay: 0.15s; } .msg--escribe i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes punto { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-4px); opacity: 1; } }
+@keyframes msg-entra { from { opacity: 0; transform: translateY(10px) scale(0.96); } to { opacity: 1; transform: none; } }
+.msg--tarjeta { padding: 0; overflow: hidden; width: min(78%, 380px); }
+.conv-resumen__cab { display: flex; justify-content: space-between; padding: 14px 16px; background: var(--marino); color: var(--marfil); font-size: 0.95rem; }
+.conv-resumen__cab span { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--lavanda); }
+.conv-resumen ul { list-style: none; margin: 0; padding: 6px 16px 10px; }
+.conv-resumen li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--linea); font-size: 0.9rem; }
+.conv-resumen li:last-child { border-bottom: 0; }
+.conv-resumen li span { color: var(--texto-suave); }
+.conv-resumen li strong { text-align: right; }
+.conv__entrada { padding: 14px clamp(14px, 3vw, 22px) 16px; border-top: 1px solid var(--linea); background: var(--marfil); min-height: 76px; display: grid; align-content: center; }
+.conv__entrada.lista > * { animation: texto-entra 380ms var(--ease-out) both; }
+.conv-ops { display: flex; flex-wrap: wrap; gap: 8px; }
+.conv .chat-op { min-height: 46px; padding: 0 18px; font-size: 0.975rem; }
+.conv-dias { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.conv-dias .dia { flex: none; width: 70px; padding: 10px 0; }
+.conv-horas { display: grid; gap: 10px; }
+.conv-horas__g { display: grid; gap: 6px; }
+.conv-horas__g > span { font-size: 0.8125rem; font-weight: 600; color: var(--texto-suave); }
+.conv .chat-op--hora { min-width: 78px; padding: 0 12px; }
+.conv-campos { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: end; }
+.conv-campos .campo input { height: 50px; }
+.conv-enviar { width: 50px; height: 50px; min-height: 50px; padding: 0; border-radius: 50%; }
+.conv-error { font-size: 0.8125rem; color: var(--error); font-weight: 600; }
+.conv-error:empty { display: none; }
+.conv-final { display: flex; flex-wrap: wrap; gap: 10px; }
+.conv__lado { display: grid; gap: 14px; position: sticky; top: 100px; }
+.conv__lado .nubo { width: 200px; justify-self: center; }
+@media (max-width: 1000px) {
+  .conv { grid-template-columns: 1fr; }
+  .conv__lado { position: static; }
+  .conv__lado .nubo { display: none; }
+  .conv__ventana { height: calc(100svh - 96px); border-radius: var(--r-lg); }
+  .conv-campos { grid-template-columns: 1fr auto; }
+  .conv-campos .campo:first-child { grid-column: 1 / -1; }
+  .msg { max-width: 86%; }
+}
 .mini-info { padding: 20px; border-radius: var(--r-lg); background: var(--marfil); border: 1px solid var(--linea); display: grid; gap: 10px; font-size: 0.9375rem; }
 .mini-info li { display: flex; gap: 10px; }
 .mini-info ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
@@ -90,7 +150,6 @@ CSS_AG = CSS_COMUN + '''
   .chat-op { min-height: 50px; padding: 0 18px; font-size: 1rem; }
   .chat-dias { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -22px; padding-inline: 22px; }
   .chat-dias .dia { flex: none; width: 74px; }
-  .ticket::before, .ticket::after { display: none; }
 }
 '''
 
@@ -119,23 +178,20 @@ lugar = f'''<section class="seccion" style="padding-top: 0"><div class="contened
   <div class="mapa revela"><iframe src="{MAPA_EMBED}" loading="lazy" title="Mapa de Dental Díaz en Terán" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
 </div></div></section>'''
 
-# ---------- Propuesta A: página directa ----------
-form = agenda_html(pasos=True).replace('<h2 class="h2">Agenda tu valoración</h2>', '<h2 class="h2">Elige tu horario</h2>', 1)
-cuerpo_a = f'''
+HERO = f'''
 <section class="ag-hero"><div class="contenedor ag-hero__grid">
-  <div>
-    <nav class="migas" aria-label="Ruta"><a href="index.html">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Agendar</span></nav>
-    <h1 data-palabras>Agenda tu valoración</h1>
-    <p class="lead">45 minutos con la doctora. Revisamos con calma, tomamos dos radiografías y te llevas tu plan por escrito.</p>
-  </div>
-  <div class="ag-datos revela" data-escalonar>
+  <nav class="migas" aria-label="Ruta"><a href="index.html">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Agendar</span></nav>
+  <h1 data-palabras>Agenda tu valoración</h1>
+  <p class="lead">45 minutos con la doctora. Revisamos con calma, tomamos dos radiografías y te llevas tu plan por escrito.</p>
+  <div class="ag-datos">
     <div class="ag-dato">{ic("clock")}<div><strong>45 minutos</strong><small>Con la Dra. Díaz</small></div></div>
     <div class="ag-dato">{ic("receipt-2")}<div><strong>$350</strong><small>Se descuenta de tu tratamiento</small></div></div>
     <div class="ag-dato">{ic("brand-whatsapp")}<div><strong>Confirmación por WhatsApp</strong><small>Sin pago en línea</small></div></div>
   </div>
-</div></section>
-{form}
-<section class="seccion" style="padding-top: 0"><div class="contenedor">
+</div></section>'''
+
+INFO = f'''
+<section class="seccion"><div class="contenedor">
   <div class="titular revela"><h2 class="h2">Antes de tu cita</h2></div>
   <div class="antes" data-escalonar>
     <div class="revela"><h3 class="h3" style="margin:0">Qué incluye</h3><ul><li>{ic("check")} Revisión completa de tu boca</li><li>{ic("check")} Dos radiografías periapicales digitales</li><li>{ic("check")} Diagnóstico explicado con tus radiografías</li><li>{ic("check")} Plan de tratamiento con precio, por escrito</li></ul></div>
@@ -150,43 +206,53 @@ cuerpo_a = f'''
 {lugar}
 '''
 
-# ---------- Propuesta B: conversación con Nubo ----------
-cuerpo_b = f'''
-<section class="contenedor chat" data-chat-agenda>
+INCLUYE = f'''<div class="mini-info"><strong>Incluye</strong><ul><li>{ic("check")} Revisión completa</li><li>{ic("check")} Dos radiografías periapicales</li><li>{ic("check")} Plan por escrito, con precio</li></ul></div>
+    <div class="mini-info"><span class="estado-abierto" data-abierto>Horario</span><span class="texto chico">2da Norte Oriente #438, Terán</span><a class="enlace" href="{MAPS}" target="_blank" rel="noopener">{ic("navigation")} Cómo llegar</a></div>'''
+
+# ---------- Propuesta A: Nubo pregunta, la tarjeta se llena ----------
+cuerpo_a = HERO + f'''
+<section class="contenedor chat" id="agenda" data-chat-agenda style="min-height: 0; padding-top: 0; scroll-margin-top: 90px">
   <div class="chat__escena">
     <div class="chat__riel"><span class="chat__barra" data-chat-barra></span></div>
     <div class="chat__top">
-      <nav class="migas" aria-label="Ruta"><a href="index.html">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Agendar</span></nav>
+      <span class="mini-titulo">Te hago 6 preguntas rápidas</span>
       <span class="chat__contador" data-chat-contador>Paso 1 de 6</span>
     </div>
     <div class="chat__cuerpo">
       <div class="chat__nubo"><div class="nubo" data-nubo="saluda" data-chat-nubo data-mirada data-saluda aria-label="Nubo"></div></div>
       <div>
-        <h1 class="chat__pregunta" data-chat-pregunta aria-live="polite">Hola, soy Nubo. ¿Qué te gustaría revisar?</h1>
+        <h2 class="chat__pregunta" data-chat-pregunta aria-live="polite">Hola, soy Nubo. ¿Qué te gustaría revisar?</h2>
         <div class="chat__area" data-chat-area></div>
         <button type="button" class="chat__atras" data-chat-atras hidden>{ic("arrow-right")} Atrás</button>
       </div>
     </div>
   </div>
   <aside class="chat__lado">
-    <div class="ticket"><h2>Tu valoración</h2><p>Dental Díaz · 45 minutos · $350</p><ul data-chat-ticket></ul></div>
-    <div class="mini-info"><strong>Incluye</strong><ul><li>{ic("check")} Revisión completa</li><li>{ic("check")} Dos radiografías periapicales</li><li>{ic("check")} Plan por escrito, con precio</li></ul></div>
-    <div class="mini-info"><span class="estado-abierto" data-abierto>Horario</span><span class="texto chico">2da Norte Oriente #438, Terán</span><a class="enlace" href="{MAPS}" target="_blank" rel="noopener">{ic("navigation")} Cómo llegar</a></div>
+    <div class="tu-cita"><div class="tu-cita__cab"><div><h2>Tu cita</h2><p>Valoración · 45 minutos · $350</p></div><span class="tu-cita__estado" data-cita-estado>En proceso</span></div><ul data-chat-ticket></ul></div>
+    {INCLUYE}
   </aside>
 </section>
-<section class="seccion" style="padding-top: clamp(32px, 5vw, 64px)"><div class="contenedor ag-faq">
-  <div class="ag-faq__lado revela"><h2 class="h2">Dudas sobre tu cita</h2><a class="btn btn--whatsapp btn--chico" href="{WA}" target="_blank" rel="noopener">{ic("brand-whatsapp")} Pregúntanos</a></div>
-  <div class="revela">{faq()}</div>
-</div></section>
-'''
+''' + INFO
+
+# ---------- Propuesta B: conversación tipo WhatsApp ----------
+cuerpo_b = HERO + f'''
+<section class="contenedor conv" id="agenda" data-conv style="scroll-margin-top: 84px">
+  <div class="conv__ventana">
+    <header class="conv__cab"><span class="conv__avatar"><span class="nubo" data-nubo="tranquilo" aria-hidden="true"></span></span><div><strong>Nubo · Dental Díaz</strong><small>En línea</small></div><span data-conv-contador>Paso 1 de 6</span></header>
+    <div class="conv__hilo" data-hilo aria-live="polite"></div>
+    <div class="conv__entrada" data-entrada></div>
+  </div>
+  <aside class="conv__lado"><div class="nubo" data-nubo="saluda" data-conv-nubo data-mirada aria-label="Nubo"></div>{INCLUYE}</aside>
+</section>
+''' + INFO
 
 def armar(tag, cuerpo, archivo, extra=""):
     html = cabeza(f"Agenda tu valoración · Dental Díaz · {tag}", CSS_AG) + nav(tag) + "<main>" + cuerpo + "</main>\n" + pie()
     html = html.replace('href="#agenda">Agenda tu valoración', 'href="#agenda" aria-current="page">Agenda tu valoración')
-    if extra:
-        html = html.replace("</body>", extra + "\n</body>")
+    extra = '<style>@media (max-width: 960px) { .barra-movil { display: none !important; } body { padding-bottom: 0 !important; } }</style>' + extra
+    html = html.replace("</body>", extra + "\n</body>")
     open(archivo, "w").write(html)
     print("ok", archivo, len(html))
 
-armar("Agendar A · Directa", cuerpo_a, "../agendar-a.html")
-armar("Agendar B · Con Nubo", cuerpo_b, "../agendar-b.html", '<style>@media (max-width: 960px) { .barra-movil { display: none !important; } body { padding-bottom: 0 !important; } }</style><script src="assets/js/agenda-chat.js"></script><script>document.querySelectorAll(\'a[href="#agenda"]\').forEach(function(a){a.setAttribute("href","#")});</script>')
+armar("Agendar A · Tarjeta", cuerpo_a, "../agendar-a.html", '<script src="assets/js/agenda-chat.js"></script>')
+armar("Agendar B · Conversación", cuerpo_b, "../agendar-b.html", '<script src="assets/js/agenda-conversa.js"></script>')

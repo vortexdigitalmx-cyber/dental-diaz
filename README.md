@@ -20,8 +20,15 @@ Demo estática (HTML, CSS y JS sin build) del sitio institucional de Dental Día
 - DM Sans para todo; DM Mono solo para datos.
 - Textos del sitio de tú. Sin precios de tratamientos; solo la valoración y los paquetes.
 
+## Agendar (dos propuestas)
+
+- `agendar-a.html`: Nubo hace las preguntas y la tarjeta "Tu cita" se llena con cada respuesta.
+- `agendar-b.html`: conversación tipo WhatsApp con Nubo.
+- Las dos llevan encabezado, "Antes de tu cita", dudas y mapa.
+
 ## Panel (demo)
 
-- `panel-a.html`: panel clásico con barra lateral (Resumen, Agenda semanal, Pacientes, Ligas, Comisión, Pendientes, Contenido).
-- `panel-b.html`: panel "Hoy primero", pensado para celular (citas del día con acciones rápidas, kanban de pacientes, barra inferior).
+- `panel.html`: menú lateral en computadora y barra inferior en celular. Hoy, Agenda (calendario o tarjetas, día o semana), Pacientes, Resumen, Cobros, Comisión, Ligas, Contenido, Pendientes y Equipo.
+- Selector "Ver como" para mostrar la vista de recepción (sin montos).
 - Datos de ejemplo en `assets/js/panel.js`. Generador: `fuente/panel.py`.
+

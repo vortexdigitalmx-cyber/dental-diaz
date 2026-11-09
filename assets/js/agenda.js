@@ -27,6 +27,26 @@
     return r;
   }
   function aMin(h) { var p = h.split(':'); return +p[0] * 60 + +p[1]; }
+  function waOk(v) { var d = v.replace(/\D/g, ''); return d.length === 10 || (d.length === 12 && d.indexOf('52') === 0); }
+  function confeti(el) {
+    if (!el || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    var r = el.getBoundingClientRect(), capa = document.createElement('div'), col = ['#303B5B', '#A3AFD1', '#939FC1', '#DCDBE0', '#FAF8F3'];
+    capa.className = 'confeti'; document.body.appendChild(capa);
+    for (var i = 0; i < 46; i++) {
+      var s = document.createElement('i');
+      s.style.left = (r.left + r.width / 2) + 'px'; s.style.top = (r.top + Math.min(r.height, 260) / 2) + 'px';
+      s.style.background = col[i % col.length];
+      s.style.setProperty('--x', (Math.random() * 2 - 1) * 260 + 'px'); s.style.setProperty('--y', -(120 + Math.random() * 220) + 'px');
+      s.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg'); s.style.animationDelay = (Math.random() * 120) + 'ms';
+      if (i % 3 === 0) s.style.borderRadius = '50%';
+      capa.appendChild(s);
+    }
+    setTimeout(function () { capa.remove(); }, 1900);
+  }
+  function irA(el, bloque) {
+    var top = el.getBoundingClientRect().top + window.scrollY - (bloque === 'center' ? window.innerHeight / 3 : 96);
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
 
   function init(form) {
     var caja = form.closest('[data-agenda]');
@@ -95,7 +115,7 @@
     }
     function validarPaso2() {
       var nombre = form.querySelector('[name="nombre"]'), wa = form.querySelector('[name="whatsapp"]');
-      var okN = nombre.value.trim().length > 1, okW = wa.value.replace(/\D/g, '').length === 10;
+      var okN = nombre.value.trim().length > 1, okW = waOk(wa.value);
       nombre.closest('.campo').classList.toggle('con-error', !okN);
       wa.closest('.campo').classList.toggle('con-error', !okW);
       nombre.closest('.campo').querySelector('.campo__ayuda').textContent = okN ? 'Como quieres que te llamemos.' : 'Escribe tu nombre.';
@@ -114,18 +134,22 @@
       indic.forEach(function (s, k) { s.classList.toggle('activo', k === n - 1); s.classList.toggle('hecho', k < n - 1); });
       var res = form.querySelector('[data-resumen]');
       if (res && n === 2) res.innerHTML = '<span class="dato">' + estado.interes + '</span><span class="dato">' + DIAS[estado.dia.wd] + ' ' + estado.dia.fecha.getUTCDate() + ', ' + estado.hora + '</span><button type="button" class="enlace" data-volver style="border:0;background-color:transparent;cursor:pointer">Cambiar</button>';
-      caja.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      irA(caja);
+    }
+    function avisarError() {
+      var x = form.querySelector('.con-error'); if (x) irA(x, 'center');
+      nuboEstado('piensa');
     }
     form.addEventListener('click', function (e) {
-      if (e.target.closest('[data-continuar]')) { if (validarPaso1()) mostrarPaso(2); }
+      if (e.target.closest('[data-continuar]')) { if (validarPaso1()) mostrarPaso(2); else avisarError(); }
       if (e.target.closest('[data-volver]')) mostrarPaso(1);
     });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var ok1 = validarPaso1();
-      if (!ok1) { if (paso2 && !paso2.hidden) mostrarPaso(1); return; }
-      if (!validarPaso2()) return;
+      if (!ok1) { if (paso2 && !paso2.hidden) mostrarPaso(1); avisarError(); return; }
+      if (!validarPaso2()) { avisarError(); return; }
       var nombre = form.querySelector('[name="nombre"]').value.trim();
       var fechaTxt = DIAS[estado.dia.wd].toLowerCase() + ' ' + estado.dia.fecha.getUTCDate() + ' de ' + MESES[estado.dia.fecha.getUTCMonth()];
       var okBox = caja.querySelector('.agenda-ok');
@@ -141,7 +165,8 @@
       okBox.classList.add('visible');
       var on = okBox.querySelector('.nubo'); if (on && window.Nubo) Nubo.set(on, 'celebra');
       nuboEstado('celebra');
-      caja.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      irA(okBox);
+      setTimeout(function () { confeti(okBox); }, 450);
     });
     caja.querySelector('[data-otra]').addEventListener('click', function () {
       caja.querySelector('.agenda-ok').classList.remove('visible');
@@ -153,7 +178,7 @@
   }
 
 
-  window.DDAgenda = { proximosDias: proximosDias, ocupadas: ocupadas, MANANA: MANANA, TARDE: TARDE, DIAS: DIAS, MESES: MESES, aMin: aMin, WA: WA };
+  window.DDAgenda = { waOk: waOk, confeti: confeti, irA: irA, proximosDias: proximosDias, ocupadas: ocupadas, MANANA: MANANA, TARDE: TARDE, DIAS: DIAS, MESES: MESES, aMin: aMin, WA: WA };
 
   function frenoAgenda() {
     var sec = document.querySelector('.agenda-sec');

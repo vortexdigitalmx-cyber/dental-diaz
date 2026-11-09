@@ -50,8 +50,9 @@ CSS = CSS_COMUN + '''
 .miedos-a__conversa .burbuja { margin-bottom: 120px; }
 @media (max-width: 900px) { .miedos-a { grid-template-columns: 1fr; } .miedos-a__conversa { grid-template-columns: 1fr; } .miedos-a__conversa .nubo { width: 170px; order: 2; } .miedos-a__conversa .burbuja { margin-bottom: 0; } }
 
-.historia__pista { position: relative; height: calc(4 * 80vh + 100vh); }
-.historia__marca { position: absolute; left: 0; right: 0; height: 80vh; pointer-events: none; }
+.historia { --paso: 80vh; }
+.historia__pista { position: relative; height: calc(4 * var(--paso) + 100vh); }
+.historia__marca { position: absolute; left: 0; right: 0; height: var(--paso); pointer-events: none; }
 .historia__escena { position: sticky; top: 88px; height: calc(100vh - 104px); min-height: 520px; max-height: 760px; }
 .historia__panel { height: 100%; border-radius: var(--r-xl); background: var(--marino); color: var(--marfil); padding: clamp(28px, 4vw, 56px); display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(24px, 4vw, 64px); overflow: hidden; position: relative; }
 .historia__izq { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 0; }
@@ -86,6 +87,7 @@ CSS = CSS_COMUN + '''
 .historia__precio strong { font-size: 1.35rem; letter-spacing: -0.02em; }
 .historia__barra-m { display: none; }
 @media (max-width: 900px) {
+  .historia { --paso: 62svh; }
   .historia__escena { top: 72px; height: calc(100svh - 168px); min-height: 480px; }
   .historia__panel { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding: 22px; gap: 12px; }
   .historia__lista, .historia__izq .btn { display: none; }
@@ -173,7 +175,7 @@ def miedos():
 
 btns, dets = pasos()
 PROPS = ["stethoscope", "scan", "mood-smile", "file-text"]
-marcas = "".join(f'<div class="historia__marca" data-historia-marca="{i}" style="top: calc({i} * 80vh)"></div>' for i in range(4))
+marcas = "".join(f'<div class="historia__marca" data-historia-marca="{i}" style="top: calc({i} * var(--paso))"></div>' for i in range(4))
 lista = "".join(f'<li data-historia-item>{p[0]}</li>' for p in PASOS)
 p0t, p0d = PASOS[0][0], PASOS[0][1]
 datos_historia = [{"t": p[0], "d": p[1], "e": p[2], "i": PROPS[k]} for k, p in enumerate(PASOS)]

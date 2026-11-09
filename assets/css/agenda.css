@@ -1,4 +1,5 @@
 .agenda-sec { scroll-margin-top: 88px; }
+@media (max-width: 960px) { .agenda-sec { scroll-margin-top: 72px; } }
 .agenda-caja { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 0; border-radius: var(--r-xl); overflow: hidden; background: var(--marfil); border: 1px solid var(--linea); box-shadow: var(--sombra-suave); }
 .agenda-lado { position: relative; background: var(--marino); color: var(--marfil); padding: clamp(28px, 4vw, 52px); display: flex; flex-direction: column; justify-content: space-between; gap: 28px; overflow: hidden; }
 .agenda-lado .h2 { max-width: 12ch; }

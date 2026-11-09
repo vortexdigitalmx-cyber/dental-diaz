@@ -152,7 +152,34 @@
     });
   }
 
+
+  function frenoAgenda() {
+    var sec = document.querySelector('.agenda-sec');
+    if (!sec || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    var visto = 0, usado = 0, timer, ultimoY = window.scrollY, muestras = [];
+    function revisar() {
+      var top = sec.getBoundingClientRect().top;
+      var bajando = window.scrollY > ultimoY;
+      ultimoY = window.scrollY;
+      var ahora = Date.now();
+      muestras.push([ahora, window.scrollY]);
+      while (muestras.length && ahora - muestras[0][0] > 700) muestras.shift();
+      if (top > -60 && top < window.innerHeight * 0.7) visto = Date.now();
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        var t = sec.getBoundingClientRect().top;
+        var recorrido = muestras.length ? muestras[muestras.length - 1][1] - muestras[0][1] : 0;
+        var rapido = Date.now() - visto < 1100 && recorrido > window.innerHeight * 0.8;
+        if (bajando && rapido && t < -120 && t > -window.innerHeight * 1.8 && Date.now() - usado > 8000) {
+          usado = Date.now();
+          sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 140);
+    }
+    window.addEventListener('scroll', revisar, { passive: true });
+  }
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-agenda] form').forEach(init);
+    frenoAgenda();
   });
 })();

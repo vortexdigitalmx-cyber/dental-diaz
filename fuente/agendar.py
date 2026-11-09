@@ -247,12 +247,11 @@ cuerpo_b = HERO + f'''
 ''' + INFO
 
 def armar(tag, cuerpo, archivo, extra=""):
-    html = cabeza(f"Agenda tu valoración · Dental Díaz · {tag}", CSS_AG) + nav(tag) + "<main>" + cuerpo + "</main>\n" + pie()
+    html = cabeza("Agenda tu valoración · Dental Díaz", CSS_AG) + nav(tag).replace('<div class="propuesta-tag">Propuesta ' + tag + '</div>', '') + "<main>" + cuerpo + "</main>\n" + pie()
     html = html.replace('href="#agenda">Agenda tu valoración', 'href="#agenda" aria-current="page">Agenda tu valoración')
     extra = '<style>@media (max-width: 960px) { .barra-movil { display: none !important; } body { padding-bottom: 0 !important; } }</style>' + extra
     html = html.replace("</body>", extra + "\n</body>")
     open(archivo, "w").write(html)
     print("ok", archivo, len(html))
 
-armar("Agendar A · Tarjeta", cuerpo_a, "../agendar-a.html", '<script src="assets/js/agenda-chat.js"></script>')
-armar("Agendar B · Conversación", cuerpo_b, "../agendar-b.html", '<script src="assets/js/agenda-conversa.js"></script>')
+armar("Agendar", cuerpo_a, "../agendar.html", '<script src="assets/js/agenda-chat.js"></script>')
